@@ -14,5 +14,7 @@ package frc.robot;
  */
 
 public interface RobotMap {
-    public static final int FRONT_LEFT_MOTOR_ID = 10, FRONT_RIGHT_MOTOR_ID = 11;
+    public static final int FRONT_LEFT_MOTOR_ID = 10, FRONT_RIGHT_MOTOR_ID = 11, BACK_LEFT_MOTOR_ID = 12, BACK_RIGHT_MOTOR_ID = 13, CENTRAL_MOTOR_ID = 14;
+    public static final int HORIZONTAL_AXIS = 0, VERTICAL_AXIS = 1, ROTATIONAL_AXIS = 2, SLIDER_AXIS = 3;
+
 }
