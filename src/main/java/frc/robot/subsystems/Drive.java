@@ -35,6 +35,30 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     differentialDrive.arcadeDrive(lateralPower, rotatePower);
   }
 
+  public double getPosition(WPI_TalonFX motor) {
+    return motor.getSelectedSensorPosition();
+  }
+
+  public double getLeftDistance() {
+    return (getPosition(frontLeftMotor) + getPosition(backLeftMotor)) / 2;
+  }
+
+  public double getRightDistance() {
+    return (getPosition(frontRightMotor) + getPosition(backRightMotor)) / 2;
+  }
+
+  public double getCentralDistance() {
+    return getPosition(centralMotor);
+  }
+
+  public void resetEncoders () {
+    frontLeftMotor.setSelectedSensorPosition(0);
+    frontRightMotor.setSelectedSensorPosition(0);
+    backLeftMotor.setSelectedSensorPosition(0);
+    backRightMotor.setSelectedSensorPosition(0);
+    centralMotor.setSelectedSensorPosition(0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

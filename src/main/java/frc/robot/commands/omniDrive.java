@@ -35,22 +35,31 @@ public class omniDrive extends CommandBase {
     
     lateralMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.VERTICAL_AXIS);
     horizontalMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.HORIZONTAL_AXIS);
-    rotateSpeed = RobotContainer.rightJoystick.getRawAxis(RobotMap.ROTATIONAL_AXIS);
+    rotateSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.ROTATIONAL_AXIS);
 
 
     horizontalMoveSpeed = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, deadband);
     lateralMoveSpeed = checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, deadband);
     rotateSpeed = checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, deadband);
 
-    leftSlider = RobotContainer.leftJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
-    rightSlider = RobotContainer.rightJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
+    leftSlider = -RobotContainer.leftJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
+    rightSlider = -RobotContainer.rightJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
     
     leftSlider = (leftSlider + 1) / 2;
     rightSlider = (rightSlider + 1) / 2;
 
-
-    _Drive.centralMotor.set(horizontalMoveSpeed * leftSlider);
-    _Drive.ArcadeDrive(lateralMoveSpeed * leftSlider, rotateSpeed * rightSlider);
+    if (RobotContainer.leftJoystick.getRawButtonReleased(0)) {
+      _Drive.centralMotor.set(horizontalMoveSpeed * leftSlider);  
+      _Drive.frontRightMotor.set(lateralMoveSpeed * leftSlider);
+      _Drive.frontLeftMotor.set(lateralMoveSpeed * leftSlider);
+      _Drive.backRightMotor.set(lateralMoveSpeed * leftSlider);
+      _Drive.backLeftMotor.set(lateralMoveSpeed * leftSlider);
+    }
+    else {
+      _Drive.ArcadeDrive(lateralMoveSpeed * leftSlider, rotateSpeed * rightSlider);
+    }
+    
+    
 
   }
 
