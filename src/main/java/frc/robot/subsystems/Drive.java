@@ -25,7 +25,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     frontLeftMotor = new WPI_TalonFX(FRONT_LEFT_MOTOR_ID);
     backRightMotor = new WPI_TalonFX(BACK_RIGHT_MOTOR_ID);
     backLeftMotor = new WPI_TalonFX(BACK_LEFT_MOTOR_ID);
-    centralMotor = new WPI_TalonFX(CENTRAL_MOTOR_ID);
+    centralMotor = new WPI_TalonFX(CENTRAL_MOTOR_ID); //set motor to robotmap ids
 
     
     frontLeftMotorCG = new SpeedControllerGroup(frontLeftMotor);
@@ -34,11 +34,16 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     backRightMotorCG = new SpeedControllerGroup(backRightMotor);
 
     mecanumDrive = new MecanumDrive(frontLeftMotorCG, backLeftMotorCG, frontRightMotorCG, backRightMotorCG);
-    differentialDrive = new DifferentialDrive(leftMotors, rightMotors);    
+    
+    leftMotors = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
+    rightMotors = new SpeedControllerGroup(frontRightMotor, backRightMotor); //create speed controller grouos
+     
+    differentialDrive = new DifferentialDrive(leftMotors, rightMotors); //create the differential drive
+    
   }
 
   public void ArcadeDrive (double lateralPower, double rotatePower) {
-    differentialDrive.arcadeDrive(lateralPower, rotatePower);
+    differentialDrive.arcadeDrive(lateralPower, rotatePower); //drive function
   }
   public void mecanumDrive (double xSpeed, double ySpeed, double zRotation) {
     mecanumDrive.driveCartesian(xSpeed, ySpeed, zRotation);
@@ -46,15 +51,15 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   }
 
   public double getPosition(WPI_TalonFX motor) {
-    return motor.getSelectedSensorPosition();
+    return motor.getSelectedSensorPosition(); //get the motors pos
   }
 
   public double getLeftDistance() {
-    return (getPosition(frontLeftMotor) + getPosition(backLeftMotor)) / 2;
+    return (getPosition(frontLeftMotor) + getPosition(backLeftMotor)) / 2; //avrage left side pos
   }
 
   public double getRightDistance() {
-    return (getPosition(frontRightMotor) + getPosition(backRightMotor)) / 2;
+    return (getPosition(frontRightMotor) + getPosition(backRightMotor)) / 2; //avrage right side pos
   }
 
   public double getCentralDistance() {
