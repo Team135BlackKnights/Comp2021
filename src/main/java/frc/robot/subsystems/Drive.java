@@ -6,13 +6,17 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.mecanumDrive;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Drive extends SubsystemBase implements frc.robot.RobotMap {
 
   public WPI_TalonFX frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, centralMotor;
+  public SpeedControllerGroup frontLeftMotorCG, frontRightMotorCG, backLeftMotorCG, backRightMotorCG;
+  public MecanumDrive mecanumDrive;
   public SpeedControllerGroup leftMotors, rightMotors;
   public DifferentialDrive differentialDrive;
 
@@ -24,15 +28,21 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     centralMotor = new WPI_TalonFX(CENTRAL_MOTOR_ID);
 
     
-    leftMotors = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
-    rightMotors = new SpeedControllerGroup(frontRightMotor, backRightMotor);
-     
-    differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
-    
+    frontLeftMotorCG = new SpeedControllerGroup(frontLeftMotor);
+    frontRightMotorCG = new SpeedControllerGroup(frontRightMotor);
+    backLeftMotorCG = new SpeedControllerGroup(backLeftMotor);
+    backRightMotorCG = new SpeedControllerGroup(backRightMotor);
+
+    mecanumDrive = new MecanumDrive(frontLeftMotorCG, backLeftMotorCG, frontRightMotorCG, backRightMotorCG);
+    differentialDrive = new DifferentialDrive(leftMotors, rightMotors);    
   }
 
   public void ArcadeDrive (double lateralPower, double rotatePower) {
     differentialDrive.arcadeDrive(lateralPower, rotatePower);
+  }
+  public void mecanumDrive (double xSpeed, double ySpeed, double zRotation) {
+    mecanumDrive.driveCartesian(xSpeed, ySpeed, zRotation);
+    
   }
 
   public double getPosition(WPI_TalonFX motor) {
