@@ -7,9 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.omniDrive;
-import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Drive;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -24,8 +23,7 @@ public class RobotContainer {
   public static Joystick rightJoystick = new Joystick(1);
   public static Joystick manipJoystick = new Joystick(0);
 
-  private final Drive _Drive = new Drive();
-
+  private final Drive Drive = new Drive();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

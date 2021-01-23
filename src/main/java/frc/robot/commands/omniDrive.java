@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Drive;
@@ -29,12 +28,12 @@ public class omniDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double deadband = 0.4;
-    double lateralMoveSpeed, horizontalMoveSpeed, rotateSpeed;
-    double leftSlider, rightSlider;
+    double deadband = 0.4; //if a controler excededs this value allow robot input
+    double lateralMoveSpeed, horizontalMoveSpeed, rotateSpeed; //move speeds
+    double leftSlider, rightSlider; //contoler sliders
     
     lateralMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.VERTICAL_AXIS);
-    horizontalMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.HORIZONTAL_AXIS);
+    horizontalMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.HORIZONTAL_AXIS); //controler axis
     rotateSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.ROTATIONAL_AXIS);
 
 
@@ -46,9 +45,9 @@ public class omniDrive extends CommandBase {
     rightSlider = -RobotContainer.rightJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
     
     leftSlider = (leftSlider + 1) / 2;
-    rightSlider = (rightSlider + 1) / 2;
+    rightSlider = (rightSlider + 1) / 2; //convert leftslider into useable number for limiting
 
-    if (RobotContainer.leftJoystick.getRawButtonReleased(0)) {
+    if (RobotContainer.leftJoystick.getRawButtonReleased(0)) { //if the left trigger is pressed move with the central wheel
       _Drive.centralMotor.set(horizontalMoveSpeed * leftSlider);  
       _Drive.frontRightMotor.set(lateralMoveSpeed * leftSlider);
       _Drive.frontLeftMotor.set(lateralMoveSpeed * leftSlider);
@@ -56,17 +55,14 @@ public class omniDrive extends CommandBase {
       _Drive.backLeftMotor.set(lateralMoveSpeed * leftSlider);
     }
     else {
-      _Drive.ArcadeDrive(lateralMoveSpeed * leftSlider, rotateSpeed * rightSlider);
+      _Drive.ArcadeDrive(lateralMoveSpeed * leftSlider, rotateSpeed * rightSlider); //standerd arcade drive
     }
-    
-    
-
   }
 
   public double checkDeadband (Joystick _joystick, int axis, double deadband) {
-    return (Math.abs(_joystick.getRawAxis(axis)) < deadband ? 0.0 : _joystick.getRawAxis(axis));
-
+    return (Math.abs(_joystick.getRawAxis(axis)) < deadband ? 0.0 : _joystick.getRawAxis(axis)); //check to see if deadband is exceded
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
