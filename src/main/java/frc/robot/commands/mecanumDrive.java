@@ -48,16 +48,8 @@ public class mecanumDrive extends CommandBase {
     leftSlider = (leftSlider + 1) / 2;
     rightSlider = (rightSlider + 1) / 2;
 
-    if (RobotContainer.leftJoystick.getRawButtonReleased(0)) {
-      _Drive.centralMotor.set(horizontalMoveSpeed * leftSlider);  
-      _Drive.frontRightMotor.set(lateralMoveSpeed * leftSlider);
-      _Drive.frontLeftMotor.set(lateralMoveSpeed * leftSlider);
-      _Drive.backRightMotor.set(lateralMoveSpeed * leftSlider);
-      _Drive.backLeftMotor.set(lateralMoveSpeed * leftSlider);
-    }
-    else {
-      _Drive.(lateralMoveSpeed * leftSlider, rotateSpeed * rightSlider);
-    }
+    
+    _Drive.mecanumDrive(lateralMoveSpeed * leftSlider, horizontalMoveSpeed * leftSlider, rotateSpeed * rightSlider);
     
     
 
