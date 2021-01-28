@@ -4,15 +4,6 @@
 
 package frc.robot;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
-
 public interface RobotMap {
     public static final int FRONT_LEFT_MOTOR_ID = 10, FRONT_RIGHT_MOTOR_ID = 11, BACK_LEFT_MOTOR_ID = 12, BACK_RIGHT_MOTOR_ID = 13, CENTRAL_MOTOR_ID = 14;
     public static final int HORIZONTAL_AXIS = 0, VERTICAL_AXIS = 1, ROTATIONAL_AXIS = 2, SLIDER_AXIS = 3;

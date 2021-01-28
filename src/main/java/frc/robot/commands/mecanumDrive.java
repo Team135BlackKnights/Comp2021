@@ -50,8 +50,6 @@ public class mecanumDrive extends CommandBase {
     
     _Drive.mecanumDrive(lateralMoveSpeed * leftSlider, horizontalMoveSpeed * leftSlider, rotateSpeed * rightSlider);
     
-    
-
   }
 
   public double checkDeadband (Joystick _joystick, int axis, double deadband) {

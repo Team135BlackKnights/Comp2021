@@ -29,15 +29,14 @@ public class omniDrive extends CommandBase {
   @Override
   public void execute() {
     double deadband = 0.4; //if a controler excededs this value allow robot input
-    double lateralMoveSpeed, horizontalMoveSpeed, rotateSpeed; //move speeds
+    double lateralMoveSpeed, rotateSpeed;//,horizontalMoveSpeed; //move speeds
     double leftSlider, rightSlider; //contoler sliders
     
     lateralMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.VERTICAL_AXIS);
-    horizontalMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.HORIZONTAL_AXIS); //controler axis
+    //horizontalMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.HORIZONTAL_AXIS); //controler axis
     rotateSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.ROTATIONAL_AXIS);
 
-
-    horizontalMoveSpeed = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, deadband);
+    //horizontalMoveSpeed = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, deadband);
     lateralMoveSpeed = checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, deadband);
     rotateSpeed = checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, deadband);
 
@@ -48,7 +47,7 @@ public class omniDrive extends CommandBase {
     rightSlider = (rightSlider + 1) / 2; //convert leftslider into useable number for limiting
 
     if (RobotContainer.leftJoystick.getRawButtonReleased(0)) { //if the left trigger is pressed move with the central wheel
-      _Drive.centralMotor.set(horizontalMoveSpeed * leftSlider);  
+      //_Drive.centralMotor.set(horizontalMoveSpeed * leftSlider);  
       _Drive.frontRightMotor.set(lateralMoveSpeed * leftSlider);
       _Drive.frontLeftMotor.set(lateralMoveSpeed * leftSlider);
       _Drive.backRightMotor.set(lateralMoveSpeed * leftSlider);

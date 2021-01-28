@@ -4,13 +4,15 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+import edu.wpi.first.wpilibj.SerialPort;// (for navX)
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.mecanumDrive;
+import com.kauailabs.navx.frc.AHRS;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Drive extends SubsystemBase implements frc.robot.RobotMap {
 
@@ -19,6 +21,9 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   public MecanumDrive mecanumDrive;
   public SpeedControllerGroup leftMotors, rightMotors;
   public DifferentialDrive differentialDrive;
+  public AHRS navx;
+  public SerialPort.Port navXPort = SerialPort.Port.kUSB;
+
 
   public Drive() {
     frontRightMotor = new WPI_TalonFX(FRONT_RIGHT_MOTOR_ID);
@@ -40,6 +45,8 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
      
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors); //create the differential drive
     
+    navx = new AHRS(navXPort);
+    navx.reset();
   }
 
   public void ArcadeDrive (double lateralPower, double rotatePower) {
@@ -47,7 +54,6 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   }
   public void mecanumDrive (double xSpeed, double ySpeed, double zRotation) {
     mecanumDrive.driveCartesian(xSpeed, ySpeed, zRotation);
-    
   }
 
   public double getPosition(WPI_TalonFX motor) {

@@ -16,7 +16,7 @@ public class angleDrive extends CommandBase{
     @Override
     public void initialize() {
         drive.resetEncoders();
-        //currentAngle = drive.getCurrentAngle();
+        currentAngle = drive.navx.getAngle();
          //get the distance to the desired pos
         }
 
@@ -26,7 +26,7 @@ public class angleDrive extends CommandBase{
             isFinished = true;
         } //check to see if arived
         
-        //currentAngle = drive.getCurrentAngle();
+        currentAngle = drive.navx.getAngle();
 
         angleError = angleDesired - currentAngle;
 

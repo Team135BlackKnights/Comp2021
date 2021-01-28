@@ -8,10 +8,10 @@ public class encoderDrive extends CommandBase{
     public Drive drive;
     public boolean isFinished;
 
-    public encoderDrive(Drive subsystem, double _leftDesired, double _rightDesired, double _centralDesired) {
+    public encoderDrive(Drive subsystem, double _leftDesired, double _rightDesired){//, double _centralDesired) {
         leftDesired = _leftDesired;
         rightDesired = _rightDesired;
-        centralDesired = _centralDesired;
+       // centralDesired = _centralDesired;
         addRequirements(drive);
     }
 
@@ -39,22 +39,23 @@ public class encoderDrive extends CommandBase{
 
         double leftPower = leftError/60;
         double rightPower = rightError/60;
-        double centralPower = centralError/60; //get the power to set to arive at disired pos
+       // double centralPower = centralError/60; //get the power to set to arive at disired pos
 
         double leftMinAlt = leftError > 0 ? 1: -1;
         double rightMinAlt = rightError > 0 ? 1: -1;
-        double centralMinAlt = centralPower > 0 ? 1: -1; //min power 
+        //double centralMinAlt = centralPower > 0 ? 1: -1; //min power 
 
         leftPower = limit(leftPower, .45, -.45);
         rightPower = limit(rightPower, .45, -.45);
-        centralPower = limit(centralPower, .45, -.45); //limit power first calc
+       // centralPower = limit(centralPower, .45, -.45); //limit power first calc
 
-        leftPower = limit((leftPower *1.4) + (leftMinAlt * .26), .7, -.7);
-        rightPower = limit((rightPower * 1.4) + (rightMinAlt * .26), .7, -.7);
-        centralPower = limit((centralPower * 1.4) + (centralMinAlt * .26), .7, -7); //limit power second round .26 is max
+        leftPower = (leftPower * 1.4) + (leftMinAlt * .04);
+        rightPower = (rightPower * 1.4) + (rightMinAlt * .04);
+
+       // centralPower = limit((centralPower * 1.4) + (centralMinAlt * .26), .7, -7); //limit power second round .26 is max
 
         drive.ArcadeDrive(leftPower, rightPower); 
-        drive.centralMotor.set(centralPower); //drive
+       // drive.centralMotor.set(centralPower); //drive
     }
 
     public static double limit(double x, double upperLimit, double lowerLimit) {
