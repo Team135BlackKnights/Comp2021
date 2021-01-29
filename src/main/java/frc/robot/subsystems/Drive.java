@@ -7,10 +7,12 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.music.Orchestra;
 
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.SerialPort;// (for navX)
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -34,7 +36,15 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     backLeftMotor = new WPI_TalonFX(BACK_LEFT_MOTOR_ID);
     centralMotor = new WPI_TalonFX(CENTRAL_MOTOR_ID); //set motor to robotmap ids
 
-    
+    allTallons.addInstrument(frontLeftMotor); //add each motor the to play music
+    allTallons.addInstrument(frontRightMotor);
+    allTallons.addInstrument(backRightMotor);
+    allTallons.addInstrument(backLeftMotor);
+
+    allTallons.loadMusic("RAT.chirp"); //load the song
+
+    allTallons.play();
+
     frontLeftMotorCG = new SpeedControllerGroup(frontLeftMotor);
     frontRightMotorCG = new SpeedControllerGroup(frontRightMotor);
     backLeftMotorCG = new SpeedControllerGroup(backLeftMotor);
