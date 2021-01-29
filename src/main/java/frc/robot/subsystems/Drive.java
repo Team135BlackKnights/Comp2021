@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.music.Orchestra;
 
 import edu.wpi.first.wpilibj.SerialPort;// (for navX)
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -18,6 +19,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
 
   public WPI_TalonFX frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, centralMotor;
   public SpeedControllerGroup frontLeftMotorCG, frontRightMotorCG, backLeftMotorCG, backRightMotorCG;
+  public Orchestra allTallons;
   public MecanumDrive mecanumDrive;
   public SpeedControllerGroup leftMotors, rightMotors;
   public DifferentialDrive differentialDrive;
