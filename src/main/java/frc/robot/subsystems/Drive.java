@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.music.Orchestra;
 
@@ -40,15 +41,25 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     backLeftMotorCG = new SpeedControllerGroup(backLeftMotor);
     backRightMotorCG = new SpeedControllerGroup(backRightMotor);
 
+    setBrakeMode(NeutralMode.Brake);
+
     mecanumDrive = new MecanumDrive(frontLeftMotorCG, backLeftMotorCG, frontRightMotorCG, backRightMotorCG);
-    
+    /*
     leftMotors = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
     rightMotors = new SpeedControllerGroup(frontRightMotor, backRightMotor); //create speed controller grouos
      
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors); //create the differential drive
-    
+    */
     navx = new AHRS(navXPort);
     navx.reset();
+  }
+
+
+  public void setBrakeMode(NeutralMode neutralMode) {
+    frontRightMotor.setNeutralMode(neutralMode);
+    frontLeftMotor.setNeutralMode(neutralMode);
+    backRightMotor.setNeutralMode(neutralMode);
+    backLeftMotor.setNeutralMode(neutralMode);
   }
 
   public void ArcadeDrive (double lateralPower, double rotatePower) {

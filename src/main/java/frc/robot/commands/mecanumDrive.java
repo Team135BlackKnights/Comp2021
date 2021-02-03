@@ -28,17 +28,17 @@ public class mecanumDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double deadband = 0.4;
-    double lateralMoveSpeed, horizontalMoveSpeed, rotateSpeed;
+    double deadband = 0.2;
+    double xMoveSpeed, zMoveSpeed, rotateSpeed;
     double leftSlider, rightSlider;
     
-    lateralMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.VERTICAL_AXIS);
-    horizontalMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.HORIZONTAL_AXIS);
+    xMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.VERTICAL_AXIS);
+    zMoveSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.HORIZONTAL_AXIS);
     rotateSpeed = RobotContainer.leftJoystick.getRawAxis(RobotMap.ROTATIONAL_AXIS);
 
 
-    horizontalMoveSpeed = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, deadband);
-    lateralMoveSpeed = checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, deadband);
+    xMoveSpeed = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, deadband);
+    zMoveSpeed = checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, deadband);
     rotateSpeed = checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, deadband);
 
     leftSlider = -RobotContainer.leftJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
@@ -47,8 +47,8 @@ public class mecanumDrive extends CommandBase {
     leftSlider = (leftSlider + 1) / 2;
     rightSlider = (rightSlider + 1) / 2;
 
-    
-    _Drive.mecanumDrive(lateralMoveSpeed * leftSlider, horizontalMoveSpeed * leftSlider, rotateSpeed * rightSlider);
+    //_Drive.frontLeftMotor.set(lateralMoveSpeed);
+    _Drive.mecanumDrive(xMoveSpeed * leftSlider, -zMoveSpeed * leftSlider, rotateSpeed * rightSlider);
     
   }
 
