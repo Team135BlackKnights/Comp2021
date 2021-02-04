@@ -45,6 +45,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     allTallons.loadMusic("RAT.chirp"); //load the song
 
     allTallons.play();
+    SmartDashboard.putBoolean("Music Playing", allTallons.isPlaying());
 
     frontLeftMotorCG = new SpeedControllerGroup(frontLeftMotor);
     frontRightMotorCG = new SpeedControllerGroup(frontRightMotor);
