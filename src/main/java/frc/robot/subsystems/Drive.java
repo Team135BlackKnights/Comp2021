@@ -51,7 +51,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     /* Create the orchestra with the TalonFX instruments */
     _orchestra = new Orchestra(_instruments);
 
-    _orchestra.loadMusic("RAT.chrp");
+    _orchestra.loadMusic("RaT-8bit");
     System.out.println("Auto-playing song.");
     _orchestra.play();
 
