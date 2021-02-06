@@ -28,7 +28,8 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
-
+        /* A list of TalonFX's that are to be used as instruments */
+        
         m_robotContainer = new RobotContainer();
     }
 

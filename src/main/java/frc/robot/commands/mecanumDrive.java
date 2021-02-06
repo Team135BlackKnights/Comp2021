@@ -29,7 +29,7 @@ public class mecanumDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("ANGLE:", Drive.navX.getAngle());
+    SmartDashboard.putNumber("ANGLE:", Drive.navx.getYaw());
     double deadband = 0.2;
     double xMoveSpeed, zMoveSpeed, rotateSpeed;
     double leftSlider, rightSlider;

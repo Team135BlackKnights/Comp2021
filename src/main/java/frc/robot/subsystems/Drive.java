@@ -27,7 +27,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   public MecanumDrive mecanumDrive;
   public SpeedControllerGroup leftMotors, rightMotors;
   public DifferentialDrive differentialDrive;
-  public AHRS navx;
+  public static AHRS navx;
 
 
   public Drive() {
