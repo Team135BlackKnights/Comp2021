@@ -25,10 +25,6 @@ public class angleDrive extends CommandBase{
 
     @Override
     public void execute() {
-        if (Math.abs(angleError) < 5){
-            isFinished = true;
-        }
-        
         currentAngle = drive.navx.getYaw();
 
         angleError = angleDesired - currentAngle;
@@ -36,6 +32,10 @@ public class angleDrive extends CommandBase{
         rotateSpeed = limit(angleError/60, .85, -.85);
 
         drive.mecanumDrive(0,0, rotateSpeed); 
+
+        if (Math.abs(angleError) < 5){
+            isFinished = true;
+        }
     }
 
     public static double limit(double x, double upperLimit, double lowerLimit) {
