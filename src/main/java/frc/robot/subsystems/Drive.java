@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.SerialPort;// (for navX)
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -51,7 +50,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     /* Create the orchestra with the TalonFX instruments */
     _orchestra = new Orchestra(_instruments);
 
-    _orchestra.loadMusic("RaT-8bit");
+    _orchestra.loadMusic("RaT-8bit.chrp");
     System.out.println("Auto-playing song.");
     _orchestra.play();
 
@@ -67,7 +66,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
 
     setBrakeMode(NeutralMode.Brake);
 
-    mecanumDrive = new MecanumDrive(frontLeftMotorCG, backLeftMotorCG, frontRightMotorCG, backRightMotorCG);
+    //mecanumDrive = new MecanumDrive(frontLeftMotorCG, backLeftMotorCG, frontRightMotorCG, backRightMotorCG);
     /*
     leftMotors = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
     rightMotors = new SpeedControllerGroup(frontRightMotor, backRightMotor); //create speed controller grouos
