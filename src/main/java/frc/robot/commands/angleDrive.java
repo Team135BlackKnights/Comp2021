@@ -1,22 +1,25 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
 public class angleDrive extends CommandBase{
     public double angleDesired, angleError, currentAngle , rotateSpeed;
     public Drive drive;
-    public boolean isFinished;
+    public boolean isFinished = false;
 
     public angleDrive(Drive subsystem, double _angleDesired) {
         angleDesired = _angleDesired;
+        drive = subsystem;
         addRequirements(drive);
     }
 
     @Override
     public void initialize() {
+        SmartDashboard.putBoolean("Runnning Angle Drive:", true);
         drive.resetEncoders();
-        currentAngle = drive.navx.getAngle();
+        currentAngle = drive.navx.getYaw();
          //get the distance to the desired pos
         }
 
@@ -24,9 +27,9 @@ public class angleDrive extends CommandBase{
     public void execute() {
         if (Math.abs(angleError) < 5){
             isFinished = true;
-        } //check to see if arived
+        }
         
-        currentAngle = drive.navx.getAngle();
+        currentAngle = drive.navx.getYaw();
 
         angleError = angleDesired - currentAngle;
 
@@ -51,6 +54,7 @@ public class angleDrive extends CommandBase{
 
     @Override
     public boolean isFinished(){
+        SmartDashboard.putBoolean("Runnning Angle Drive:", false);
         return isFinished;
     }
 }
