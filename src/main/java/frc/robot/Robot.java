@@ -7,10 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import java.util.ArrayList;
 
-import com.ctre.phoenix.music.*;
-import com.ctre.phoenix.motorcontrol.can.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,15 +20,6 @@ public class Robot extends TimedRobot {
 
     private RobotContainer m_robotContainer;
 
-    Orchestra _Orchestra;
-
-    TalonFX[] _fxes = {
-        new TalonFX(10),
-        new TalonFX(11),
-        new TalonFX(12),
-        new TalonFX(13)
-    };
-
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
@@ -40,15 +28,6 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
-        /* A list of TalonFX's that are to be used as instruments */
-        ArrayList < TalonFX > _instruments = new ArrayList < TalonFX > ();
-
-        /* Initialize the TalonFX's to be used */
-        for (int i = 0; i < _fxes.length; ++i) {
-            _instruments.add(_fxes[i]);
-        }
-        /* Create the orchestra with the TalonFX instruments */
-        _Orchestra = new Orchestra(_instruments);
 
         m_robotContainer = new RobotContainer();
     }
@@ -97,9 +76,6 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        _Orchestra.loadMusic("RAT.chirp");
-        System.out.println("Auto-playing song.");
-        _Orchestra.play();
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }

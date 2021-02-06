@@ -4,16 +4,17 @@
 
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+
+import com.ctre.phoenix.music.*;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.music.Orchestra;
 
 import edu.wpi.first.wpilibj.SerialPort;// (for navX)
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.*;
 
@@ -21,7 +22,6 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
 
   public WPI_TalonFX frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, centralMotor;
   public SpeedControllerGroup frontLeftMotorCG, frontRightMotorCG, backLeftMotorCG, backRightMotorCG;
-  public Orchestra TalonMusic;
   public MecanumDrive mecanumDrive;
   public SpeedControllerGroup leftMotors, rightMotors;
   public DifferentialDrive differentialDrive;
@@ -36,24 +36,29 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     backLeftMotor = new WPI_TalonFX(BACK_LEFT_MOTOR_ID);
     centralMotor = new WPI_TalonFX(CENTRAL_MOTOR_ID); //set motor to robotmap ids
 
+    Orchestra _orchestra;
+
+    /* A list of TalonFX's that are to be used as instruments */
+    ArrayList < TalonFX > _instruments = new ArrayList < TalonFX > ();
+
+    /* Initialize the TalonFX's to be used */
+    _instruments.add(frontLeftMotor);
+    _instruments.add(frontRightMotor);
+    _instruments.add(backLeftMotor);
+    _instruments.add(backRightMotor);
+
+    /* Create the orchestra with the TalonFX instruments */
+    _orchestra = new Orchestra(_instruments);
+
+    _orchestra.loadMusic("RAT.chrp");
+    System.out.println("Auto-playing song.");
+    _orchestra.play();
+
     voltageComp(frontLeftMotor);
     voltageComp(frontRightMotor);
     voltageComp(backLeftMotor);
     voltageComp(backRightMotor);
 
-    //add each motor the to play music
-/*  TalonMusic.addInstrument(frontLeftMotor);
-    TalonMusic.addInstrument(frontRightMotor);
-    TalonMusic.addInstrument(backRightMotor);
-    TalonMusic.addInstrument(backLeftMotor);
-
-
-
-    TalonMusic.loadMusic("RAT.chirp"); //load the song
-
-    TalonMusic.play();
-    SmartDashboard.putBoolean("Music Playing", TalonMusic.isPlaying());
-*/
     frontLeftMotorCG = new SpeedControllerGroup(frontLeftMotor);
     frontRightMotorCG = new SpeedControllerGroup(frontRightMotor);
     backLeftMotorCG = new SpeedControllerGroup(backLeftMotor);
