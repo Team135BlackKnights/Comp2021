@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.music.Orchestra;
 
@@ -20,7 +21,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
 
   public WPI_TalonFX frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, centralMotor;
   public SpeedControllerGroup frontLeftMotorCG, frontRightMotorCG, backLeftMotorCG, backRightMotorCG;
-  public Orchestra allTallons;
+  public Orchestra TalonMusic;
   public MecanumDrive mecanumDrive;
   public SpeedControllerGroup leftMotors, rightMotors;
   public DifferentialDrive differentialDrive;
@@ -35,16 +36,24 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     backLeftMotor = new WPI_TalonFX(BACK_LEFT_MOTOR_ID);
     centralMotor = new WPI_TalonFX(CENTRAL_MOTOR_ID); //set motor to robotmap ids
 
-    allTallons.addInstrument(frontLeftMotor); //add each motor the to play music
-    allTallons.addInstrument(frontRightMotor);
-    allTallons.addInstrument(backRightMotor);
-    allTallons.addInstrument(backLeftMotor);
+    voltageComp(frontLeftMotor);
+    voltageComp(frontRightMotor);
+    voltageComp(backLeftMotor);
+    voltageComp(backRightMotor);
 
-    allTallons.loadMusic("RAT.chirp"); //load the song
+    //add each motor the to play music
+/*  TalonMusic.addInstrument(frontLeftMotor);
+    TalonMusic.addInstrument(frontRightMotor);
+    TalonMusic.addInstrument(backRightMotor);
+    TalonMusic.addInstrument(backLeftMotor);
 
-    allTallons.play();
-    SmartDashboard.putBoolean("Music Playing", allTallons.isPlaying());
 
+
+    TalonMusic.loadMusic("RAT.chirp"); //load the song
+
+    TalonMusic.play();
+    SmartDashboard.putBoolean("Music Playing", TalonMusic.isPlaying());
+*/
     frontLeftMotorCG = new SpeedControllerGroup(frontLeftMotor);
     frontRightMotorCG = new SpeedControllerGroup(frontRightMotor);
     backLeftMotorCG = new SpeedControllerGroup(backLeftMotor);
@@ -61,6 +70,11 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     */
     navx = new AHRS(navXPort);
     navx.reset();
+  }
+
+  public void voltageComp(TalonFX talon) {
+    talon.enableVoltageCompensation(true);
+    talon.configVoltageCompSaturation(12);
   }
 
 
