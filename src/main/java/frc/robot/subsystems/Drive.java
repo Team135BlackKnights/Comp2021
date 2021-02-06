@@ -35,24 +35,25 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     backRightMotor = new WPI_TalonFX(BACK_RIGHT_MOTOR_ID);
     backLeftMotor = new WPI_TalonFX(BACK_LEFT_MOTOR_ID);
     centralMotor = new WPI_TalonFX(CENTRAL_MOTOR_ID); //set motor to robotmap ids
-
+/*
     Orchestra _orchestra;
 
-    /* A list of TalonFX's that are to be used as instruments */
+    // A list of TalonFX's that are to be used as instruments 
     ArrayList < TalonFX > _instruments = new ArrayList < TalonFX > ();
 
-    /* Initialize the TalonFX's to be used */
+    // Initialize the TalonFX's to be used 
     _instruments.add(frontLeftMotor);
     _instruments.add(frontRightMotor);
     _instruments.add(backLeftMotor);
     _instruments.add(backRightMotor);
 
-    /* Create the orchestra with the TalonFX instruments */
+    // Create the orchestra with the TalonFX instruments 
     _orchestra = new Orchestra(_instruments);
 
-    _orchestra.loadMusic("RaT-8bit");
+    _orchestra.loadMusic("RaT-8bit.chrp");
     System.out.println("Auto-playing song.");
     _orchestra.play();
+    */
 
     voltageComp(frontLeftMotor);
     voltageComp(frontRightMotor);
