@@ -8,6 +8,7 @@ import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -28,6 +29,7 @@ public class mecanumDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("ANGLE:", Drive.navX.getAngle());
     double deadband = 0.2;
     double xMoveSpeed, zMoveSpeed, rotateSpeed;
     double leftSlider, rightSlider;

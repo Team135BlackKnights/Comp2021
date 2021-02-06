@@ -16,9 +16,11 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.*;
+import edu.wpi.first.wpilibj.I2C;
+
 
 public class Drive extends SubsystemBase implements frc.robot.RobotMap {
-
+  private final I2C.Port i2cPort = I2C.Port.kOnboard;
   public WPI_TalonFX frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, centralMotor;
   public SpeedControllerGroup frontLeftMotorCG, frontRightMotorCG, backLeftMotorCG, backRightMotorCG;
   public Orchestra TalonMusic;
@@ -26,7 +28,6 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   public SpeedControllerGroup leftMotors, rightMotors;
   public DifferentialDrive differentialDrive;
   public AHRS navx;
-  public SerialPort.Port navXPort = SerialPort.Port.kUSB;
 
 
   public Drive() {
@@ -68,7 +69,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
      
     differentialDrive = new DifferentialDrive(leftMotors, rightMotors); //create the differential drive
     */
-    navx = new AHRS(navXPort);
+    navx = new AHRS(i2cPort);
     navx.reset();
   }
 
