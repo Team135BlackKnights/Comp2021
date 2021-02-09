@@ -8,6 +8,9 @@ public class angleDrive extends CommandBase{
     public double angleDesired, angleError, currentAngle , rotateSpeed;
     public Drive drive;
     public boolean isFinished = false;
+    public double proportionalOutput, intergralTop, intergralBottom, integralOutput;
+
+    public double kP = 1.1, kI = 0.1, kD;
 
     public angleDrive(Drive subsystem, double _angleDesired) {
         angleDesired = _angleDesired;
@@ -19,21 +22,35 @@ public class angleDrive extends CommandBase{
     public void initialize() {
         SmartDashboard.putBoolean("Runnning Angle Drive:", true);
         drive.resetEncoders();
-        currentAngle = Drive.navx.getYaw();
+        currentAngle = drive.navx.getYaw();
+        isFinished = false;
          //get the distance to the desired pos
         }
 
     @Override
     public void execute() {
-        currentAngle = Drive.navx.getYaw();
+        
+        currentAngle = drive.navx.getYaw();
 
         angleError = angleDesired - currentAngle;
 
-        rotateSpeed = limit(angleError/60, .85, -.85);
+        proportionalOutput = (angleError/90) * kP;
+        integralOutput = angleError * kI;
+
+        intergralTop = angleDesired * 1.37;
+        intergralBottom = angleDesired - (angleDesired * .37);
+        
+        if (proportionalOutput > intergralBottom && proportionalOutput < intergralTop){
+            rotateSpeed = proportionalOutput + integralOutput;
+        }
+        else { rotateSpeed = proportionalOutput; }
+       
+
+        rotateSpeed = limit(rotateSpeed, .40, -.40);
 
         drive.mecanumDrive(0,0, rotateSpeed); 
 
-        if (Math.abs(angleError) < 5){
+        if (Math.abs(angleError) < .5){
             isFinished = true;
         }
     }
@@ -49,6 +66,8 @@ public class angleDrive extends CommandBase{
 
     @Override
     public void end(boolean interrupted){
+        isFinished = false;
+        SmartDashboard.putBoolean("isFinished", isFinished());
         drive.mecanumDrive(0, 0, 0); //zero power at end
     }
 
