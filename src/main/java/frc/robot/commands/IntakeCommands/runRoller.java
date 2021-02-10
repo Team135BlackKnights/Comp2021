@@ -7,7 +7,7 @@ import frc.robot.subsystems.Intake;
 public class runRoller extends CommandBase {
     private final Intake intake;
     private double desiredRPM;
-    private double kP = 2, kI, kD;
+    private double kP = 2; //, kI = .2, kD = 0;
 
     public runRoller (Intake subsystem, double _desiredRPM) {
         intake = subsystem;

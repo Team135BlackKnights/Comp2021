@@ -22,7 +22,7 @@ public class angleDrive extends CommandBase{
     public void initialize() {
         SmartDashboard.putBoolean("Runnning Angle Drive:", true);
         drive.resetEncoders();
-        currentAngle = drive.navx.getYaw();
+        currentAngle = Drive.navx.getYaw();
         isFinished = false;
          //get the distance to the desired pos
         }
@@ -30,7 +30,7 @@ public class angleDrive extends CommandBase{
     @Override
     public void execute() {
         //get the angle from a scale of -180 to 180
-        currentAngle = drive.navx.getYaw();
+        currentAngle = Drive.navx.getYaw();
 
         //How far off the desired angle is from the current angle
         angleError = angleDesired - currentAngle;
