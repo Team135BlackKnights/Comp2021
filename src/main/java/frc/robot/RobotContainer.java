@@ -9,10 +9,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommands.*;
 import frc.robot.commands.IntakeCommands.*;
-import frc.robot.commands.*;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Intake;
 
 public class RobotContainer implements RobotMap {
+  
   // The robot's subsystems and commands are defined here...
   
   public static Joystick leftJoystick = new Joystick(1);
@@ -51,6 +52,7 @@ public class RobotContainer implements RobotMap {
   manipButton12 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON);
 
 
+  public static Intake intake = new Intake();
   public static Drive drive = new Drive();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
