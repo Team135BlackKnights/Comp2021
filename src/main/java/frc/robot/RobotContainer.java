@@ -8,14 +8,15 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommands.*;
+import frc.robot.commands.IntakeCommands.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Drive;
 
 public class RobotContainer implements RobotMap {
   // The robot's subsystems and commands are defined here...
   
-  public static Joystick leftJoystick = new Joystick(2);
-  public static Joystick rightJoystick = new Joystick(1);
+  public static Joystick leftJoystick = new Joystick(1);
+  public static Joystick rightJoystick = new Joystick(2);
   public static Joystick manipJoystick = new Joystick(0);
 
   public static JoystickButton rightTrigger = new JoystickButton(rightJoystick, KOI.TRIGGER_BUTTON),
@@ -57,14 +58,14 @@ public class RobotContainer implements RobotMap {
       
     // Configure the button bindings
     drive.setDefaultCommand(new mecanumDrive(drive));
-
+    
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
 
     rightButton3.whenPressed(new angleDrive(drive, 90));
-
+    manipButton4.whenPressed(new tempCompressorControl());
 
 
   }

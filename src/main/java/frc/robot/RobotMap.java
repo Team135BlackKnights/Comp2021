@@ -19,5 +19,8 @@ public interface RobotMap {
             BASE_TOP_LEFT_BUTTON = 7, BASE_TOP_RIGHT_BUTTON = 8, BASE_MIDDLE_LEFT_BUTTON = 9, BASE_MIDDLE_RIGHT_BUTTON = 10,
             BASE_BOTTOM_LEFT_BUTTON = 11, BASE_BOTTOM_RIGHT_BUTTON = 12;
     }
+    public interface STORAGE {
+        public static final int ROLLER_SPARK = 15;
+    }
 
 }
