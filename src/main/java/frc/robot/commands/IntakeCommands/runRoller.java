@@ -8,7 +8,7 @@ import frc.robot.subsystems.Intake;
 public class runRoller extends CommandBase {
     private final Intake intake;
     private double desiredRPM;
-    private double kP = 2, kI, kD;
+    private double kP = 2; //, kI = .2, kD = 0;
 
     public runRoller (Intake subsystem, double _desiredRPM) {
         intake = subsystem;
@@ -34,7 +34,6 @@ public class runRoller extends CommandBase {
         //set output bassed off proportional
         double input = proportionalOutput;
         intake.rollerMotor.set(input);
-
     }
 
     @Override
@@ -42,6 +41,7 @@ public class runRoller extends CommandBase {
         SmartDashboard.putString("Intake Command Running: ", "No Command Running");
         intake.rollerMotor.set(0);
     }
+
     @Override
     public boolean isFinished() {
         return false;

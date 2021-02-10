@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /** An example command that uses an example subsystem. */
 public class mecanumDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Drive _Drive;
+  private final Drive drive;
 
   public mecanumDrive(Drive subsystem) {
-    _Drive = subsystem;
+    drive = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -26,7 +26,6 @@ public class mecanumDrive extends CommandBase {
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     SmartDashboard.putNumber("YAW:", Drive.navx.getYaw());
@@ -51,15 +50,13 @@ public class mecanumDrive extends CommandBase {
     leftSlider = (leftSlider + 1) / 2;
     rightSlider = (rightSlider + 1) / 2;
 
-    //_Drive.frontLeftMotor.set(lateralMoveSpeed);
-    _Drive.mecanumDrive(xMoveSpeed * leftSlider, -zMoveSpeed * leftSlider, rotateSpeed * rightSlider);
-    
+    drive.mecanumDrive((xMoveSpeed * leftSlider), (-zMoveSpeed * leftSlider), (rotateSpeed * rightSlider));    
   }
 
   public double checkDeadband (Joystick _joystick, int axis, double deadband) {
     return (Math.abs(_joystick.getRawAxis(axis)) < deadband ? 0.0 : _joystick.getRawAxis(axis));
-
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}

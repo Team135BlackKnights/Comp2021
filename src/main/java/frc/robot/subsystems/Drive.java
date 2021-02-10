@@ -4,9 +4,6 @@
 
 package frc.robot.subsystems;
 
-import java.util.ArrayList;
-
-import com.ctre.phoenix.music.*;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -34,26 +31,6 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     frontLeftMotor = new WPI_TalonFX(FRONT_LEFT_MOTOR_ID);
     backRightMotor = new WPI_TalonFX(BACK_RIGHT_MOTOR_ID);
     backLeftMotor = new WPI_TalonFX(BACK_LEFT_MOTOR_ID);
-    
-    /*
-    Orchestra _orchestra;
-
-    // A list of TalonFX's that are to be used as instruments 
-    ArrayList < TalonFX > _instruments = new ArrayList < TalonFX > ();
-
-    // Initialize the TalonFX's to be used 
-    _instruments.add(frontLeftMotor);
-    _instruments.add(frontRightMotor);
-    _instruments.add(backLeftMotor);
-    _instruments.add(backRightMotor);
-
-    // Create the orchestra with the TalonFX instruments 
-    _orchestra = new Orchestra(_instruments);
-
-    _orchestra.loadMusic("RaT-8bit.chrp");
-    System.out.println("Auto-playing song.");
-    _orchestra.play();
-    */
 
     voltageComp(frontLeftMotor);
     voltageComp(frontRightMotor);
@@ -126,6 +103,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
 
   @Override
   public void simulationPeriodic() {
