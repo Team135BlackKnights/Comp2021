@@ -1,4 +1,4 @@
-package frc.robot.commands.storage;
+package frc.robot.commands.StorageCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Storage;

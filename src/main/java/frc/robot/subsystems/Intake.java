@@ -29,6 +29,4 @@ public class Intake extends SubsystemBase implements RobotMap.INTAKE {
         compressor.setClosedLoopControl(false);
         compressor.start();
     }
-
-
 }

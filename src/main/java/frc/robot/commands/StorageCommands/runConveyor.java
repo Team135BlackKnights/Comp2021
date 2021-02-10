@@ -1,4 +1,4 @@
-package frc.robot.commands.storage;
+package frc.robot.commands.StorageCommands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

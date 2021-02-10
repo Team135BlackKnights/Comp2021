@@ -33,7 +33,6 @@ public class runRoller extends CommandBase {
         //set output bassed off proportional
         double input = proportionalOutput;
         intake.rollerMotor.set(input);
-
     }
 
     @Override
@@ -41,6 +40,7 @@ public class runRoller extends CommandBase {
         SmartDashboard.putString("Intake Command Running: ", "No Command Running");
         intake.rollerMotor.set(0);
     }
+
     @Override
     public boolean isFinished() {
         return false;
