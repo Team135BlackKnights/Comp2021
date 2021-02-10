@@ -13,7 +13,7 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 
 public class RobotContainer implements RobotMap {
-  
+
   // The robot's subsystems and commands are defined here...
   
   public static Joystick leftJoystick = new Joystick(1);

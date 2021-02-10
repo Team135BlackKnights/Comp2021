@@ -1,3 +1,4 @@
+/*
 package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
@@ -9,7 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
-public class Storage extends SubsystemBase implements RobotMap.INTAKE {
+public class Storage extends SubsystemBase implements RobotMap.STORAGE {
     
     public CANSparkMax conveyorMotor;
     public CANEncoder conveyorEncoder;
@@ -47,3 +48,4 @@ public class Storage extends SubsystemBase implements RobotMap.INTAKE {
     }
     
 }
+*/
