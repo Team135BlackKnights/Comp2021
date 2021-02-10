@@ -5,7 +5,7 @@
 package frc.robot;
 
 public interface RobotMap {
-    public static final int FRONT_LEFT_MOTOR_ID = 10, FRONT_RIGHT_MOTOR_ID = 11, BACK_LEFT_MOTOR_ID = 12, BACK_RIGHT_MOTOR_ID = 13, CENTRAL_MOTOR_ID = 14;
+    public static final int FRONT_LEFT_MOTOR_ID = 10, FRONT_RIGHT_MOTOR_ID = 11, BACK_LEFT_MOTOR_ID = 12, BACK_RIGHT_MOTOR_ID = 13;
     public static final int HORIZONTAL_AXIS = 0, VERTICAL_AXIS = 1, ROTATIONAL_AXIS = 2, SLIDER_AXIS = 3;
     public interface KOI {
         // Variables for joysticks and their buttons initiation
@@ -19,8 +19,11 @@ public interface RobotMap {
             BASE_TOP_LEFT_BUTTON = 7, BASE_TOP_RIGHT_BUTTON = 8, BASE_MIDDLE_LEFT_BUTTON = 9, BASE_MIDDLE_RIGHT_BUTTON = 10,
             BASE_BOTTOM_LEFT_BUTTON = 11, BASE_BOTTOM_RIGHT_BUTTON = 12;
     }
-    public interface STORAGE {
-        public static final int ROLLER_SPARK = 15;
+    public interface INTAKE{
+        final int 
+        CONVEYOR_SPARK = 14,
+        INTAKE_TRIP_SWITCH = 0;
+
     }
 
 }
