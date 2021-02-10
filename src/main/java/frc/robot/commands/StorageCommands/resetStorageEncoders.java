@@ -15,4 +15,3 @@ public class resetStorageEncoders extends CommandBase {
       return false;
     }
 }
-*/

@@ -17,14 +17,14 @@ public class Intake extends SubsystemBase implements RobotMap.INTAKE {
     public Compressor compressor;
 
     public Intake() {
-        /*
+        
         //roller motor configuration
         rollerMotor = new CANSparkMax(ROLLER_SPARK, MotorType.kBrushless);
         rollerMotor.setIdleMode(IdleMode.kBrake);
         rollerMotor.enableVoltageCompensation(12);
         rollerMotor.setSmartCurrentLimit(30);
         rollerEncoder = rollerMotor.getEncoder();
-        */
+        
         //Setup/start compressor
         compressor = new Compressor();
         compressor.setClosedLoopControl(false);
