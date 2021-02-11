@@ -44,7 +44,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
 
     setBrakeMode(NeutralMode.Brake);
 
-    //mecanumDrive = new MecanumDrive(frontLeftMotorCG, backLeftMotorCG, frontRightMotorCG, backRightMotorCG);
+    mecanumDrive = new MecanumDrive(frontLeftMotorCG, backLeftMotorCG, frontRightMotorCG, backRightMotorCG);
     /*
     leftMotors = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
     rightMotors = new SpeedControllerGroup(frontRightMotor, backRightMotor); //create speed controller grouos

@@ -14,8 +14,9 @@ public class tempCompressorControl extends CommandBase {
   private static boolean isCompressorOn = true;
   Intake intake;
 
-  public tempCompressorControl() {
-
+  public tempCompressorControl(Intake subsystem) {
+    intake = subsystem;
+    
   }
 
   // Called when the command is initially scheduled.

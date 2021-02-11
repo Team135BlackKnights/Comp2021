@@ -67,7 +67,7 @@ public class RobotContainer implements RobotMap {
   private void configureButtonBindings() {
 
     rightButton3.whenPressed(new angleDrive(drive, 90));
-    manipButton4.whenPressed(new tempCompressorControl());
+    manipButton4.whenPressed(new tempCompressorControl(intake));
 
 
   }
