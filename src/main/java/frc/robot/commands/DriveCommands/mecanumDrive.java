@@ -6,7 +6,6 @@ package frc.robot.commands.DriveCommands;
 
 import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
-import frc.robot.RobotContainer.pidControl;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
