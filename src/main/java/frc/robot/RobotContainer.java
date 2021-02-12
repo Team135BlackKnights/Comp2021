@@ -55,6 +55,22 @@ public class RobotContainer implements RobotMap {
   public static Intake intake = new Intake();
   public static Drive drive = new Drive();
 
+  public class pidControl {
+    public double proportionalOutput, integralOutput, integralTop, integralBottom, desired, error, kP, kI; 
+
+    public void getIntergralZone(){
+      integralTop = desired * 1.34;
+      integralBottom = desired - (desired * -.34);
+    }
+
+    public double checkOutput(){
+      if (proportionalOutput > integralBottom && proportionalOutput < integralTop){
+        return proportionalOutput + integralOutput;
+      }
+      else { return proportionalOutput; }
+    }
+  }
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
       
@@ -67,7 +83,7 @@ public class RobotContainer implements RobotMap {
   private void configureButtonBindings() {
 
     rightButton3.whenPressed(new angleDrive(drive, 90));
-    manipButton4.whenPressed(new tempCompressorControl(intake));
+    manipButton4.whenPressed(new fireSolenoid(intake));
 
 
   }
@@ -81,4 +97,7 @@ public class RobotContainer implements RobotMap {
     // An ExampleCommand will run in autonomous
     return null;
   }
+
+
+
 }

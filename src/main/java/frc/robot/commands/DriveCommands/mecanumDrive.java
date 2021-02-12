@@ -6,6 +6,7 @@ package frc.robot.commands.DriveCommands;
 
 import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
+import frc.robot.RobotContainer.pidControl;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,6 +19,7 @@ public class mecanumDrive extends CommandBase {
 
   public mecanumDrive(Drive subsystem) {
     drive = subsystem;
+    
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -29,7 +31,6 @@ public class mecanumDrive extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putNumber("YAW:", Drive.navx.getYaw());
-    SmartDashboard.putNumber("ANGLE:", Drive.navx.getAngle());
 
     double deadband = 0.2;
     double xMoveSpeed, zMoveSpeed, rotateSpeed;
@@ -45,10 +46,10 @@ public class mecanumDrive extends CommandBase {
     rotateSpeed = checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, deadband);
 
     leftSlider = -RobotContainer.leftJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
-    rightSlider = -RobotContainer.rightJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
+    rightSlider = -RobotContainer.rightJoystick.getRawAxis(RobotMap.SLIDER_AXIS); //setting parts
     
     leftSlider = (leftSlider + 1) / 2;
-    rightSlider = (rightSlider + 1) / 2;
+    rightSlider = (rightSlider + 1) / 2; //sliders to limit speed
 
     drive.mecanumDrive((xMoveSpeed * leftSlider), (-zMoveSpeed * leftSlider), (rotateSpeed * rightSlider));    
   }
