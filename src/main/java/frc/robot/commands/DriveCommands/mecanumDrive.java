@@ -50,7 +50,13 @@ public class mecanumDrive extends CommandBase {
     leftSlider = (leftSlider + 1) / 2;
     rightSlider = (rightSlider + 1) / 2; //sliders to limit speed
 
-    drive.mecanumDrive((xMoveSpeed * leftSlider), (-zMoveSpeed * leftSlider), (rotateSpeed * rightSlider));    
+    drive.mecanumDrive((xMoveSpeed * leftSlider), (-zMoveSpeed * leftSlider), (rotateSpeed * rightSlider));  
+  
+    SmartDashboard.putNumber("Volocity: Native Units", drive.frontLeftMotor.getSelectedSensorVelocity()); //get native unit volocity
+    if (drive.frontLeftMotor.getSelectedSensorVelocity() == 0){
+      SmartDashboard.putNumber("Volocity: RPM", 0);  }
+    else { SmartDashboard.putNumber("Volocity: RPM", Math.ceil(19660200 / drive.frontLeftMotor.getSelectedSensorVelocity())); //get rounded RPM
+   }
   }
 
   public double checkDeadband (Joystick _joystick, int axis, double deadband) {
