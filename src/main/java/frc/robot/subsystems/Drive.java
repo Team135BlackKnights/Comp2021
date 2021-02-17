@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.I2C;
 public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   public WPI_TalonFX frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, centralMotor;
-  
   public SpeedControllerGroup frontLeftMotorCG, frontRightMotorCG, backLeftMotorCG, backRightMotorCG;
   public MecanumDrive mecanumDrive;
   public SpeedControllerGroup leftMotors, rightMotors;
@@ -45,6 +44,8 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
 
     setBrakeMode(NeutralMode.Brake);
 
+    //backLeftMotor.set
+
     mecanumDrive = new MecanumDrive(frontLeftMotorCG, backLeftMotorCG, frontRightMotorCG, backRightMotorCG);
     /*
     leftMotors = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
@@ -67,7 +68,6 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     frontLeftMotor.setNeutralMode(neutralMode);
     backRightMotor.setNeutralMode(neutralMode);
     backLeftMotor.setNeutralMode(neutralMode);
-    //frontLeftMotor.set(mode, value);)
   }
 
   public void ArcadeDrive (double lateralPower, double rotatePower) {

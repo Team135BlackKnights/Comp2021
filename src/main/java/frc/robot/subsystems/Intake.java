@@ -25,6 +25,7 @@ public class Intake extends SubsystemBase implements RobotMap.INTAKE {
         rollerMotor.setIdleMode(IdleMode.kBrake);
         rollerMotor.enableVoltageCompensation(12);
         rollerMotor.setSmartCurrentLimit(30);
+        rollerMotor.getBusVoltage();
         rollerEncoder = rollerMotor.getEncoder();
         
         //Setup/start compressor

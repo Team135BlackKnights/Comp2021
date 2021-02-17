@@ -24,6 +24,7 @@ public class Storage extends SubsystemBase implements RobotMap.STORAGE {
 
         conveyorMotor.setInverted(false);
         conveyorMotor.enableVoltageCompensation(12);
+        conveyorMotor.getBusVoltage();
         conveyorMotor.setIdleMode(IdleMode.kBrake); //motor setup
     
         conveyorEncoder = conveyorMotor.getEncoder(); //set the encoder
