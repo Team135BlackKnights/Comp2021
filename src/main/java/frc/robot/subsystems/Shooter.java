@@ -24,11 +24,15 @@ public class Shooter extends SubsystemBase implements RobotMap.SHOOTER {
        shooterPitchMotor.getBusVoltage();
        shooterPitchEncoder = shooterPitchMotor.getEncoder();
 
-       shooterLauncherSlaveMotor = new CANSparkMax (SHOOTER_LAUNCHER_SLAVE);
+       shooterLauncherSlaveMotor = new CANSparkMax (SHOOTER_LAUNCHER_SLAVE, MotorType.kBrushless);
        shooterLauncherSlaveMotor.follow(shooterLauncherMasterMotor);
 
+       shooterLauncherMasterMotor = new CANSparkMax (SHOOTER_LAUNCHER_MASTER, MotorType.kBrushless);
+       shooterLauncherMasterMotor.setIdleMode(IdleMode.kCoast);
+       shooterLauncherMasterMotor.enableVoltageCompensation(12);
+       shooterLauncherMasterMotor.getBusVoltage();
+       shooterLauncherMasterEncoder = shooterLauncherMasterMotor.getEncoder();
 
- 
-
+       
     }
 }
