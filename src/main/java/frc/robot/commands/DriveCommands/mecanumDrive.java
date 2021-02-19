@@ -17,8 +17,10 @@ public class mecanumDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drive drive;
   RobotContainer container;
-
+  double RPM;
   public pidControl xControl = new pidControl(), zControl= new pidControl(), rControl = new pidControl();
+
+
 
   public mecanumDrive(Drive subsystem) {
     drive = subsystem;
@@ -28,13 +30,37 @@ public class mecanumDrive extends CommandBase {
   }
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+    xControl.kP = .2;
+    xControl.kI = .01;
+
+    zControl.kP = .2;
+    zControl.kI = .01;
+
+    rControl.kP = .2;
+    rControl.kI = .01;
+
+  }
 
   @Override
   public void execute() {
     SmartDashboard.putNumber("YAW:", Drive.navx.getYaw());
 
-    final double RPM = 78640800 / (drive.frontLeftMotor.getSelectedSensorVelocity() + drive.frontRightMotor.getSelectedSensorVelocity() + drive.backLeftMotor.getSelectedSensorVelocity() + drive.backRightMotor.getSelectedSensorVelocity()); //adds the native volocity of all motor before dividing be the RPM equation times 4
+    //final double RPM = 78640800 / (drive.frontLeftMotor.getSelectedSensorVelocity() + drive.frontRightMotor.getSelectedSensorVelocity() + drive.backLeftMotor.getSelectedSensorVelocity() + drive.backRightMotor.getSelectedSensorVelocity()); //adds the native volocity of all motor before dividing be the RPM equation times 4
+    
+    if (drive.frontLeftMotor.getSelectedSensorVelocity() + drive.frontRightMotor.getSelectedSensorVelocity() + drive.backLeftMotor.getSelectedSensorVelocity() + drive.backRightMotor.getSelectedSensorVelocity() != 0) {
+      //adds the native volocity of all motor before dividing be the RPM equation times 4
+      RPM = (drive.frontLeftMotor.getSelectedSensorVelocity() + drive.frontRightMotor.getSelectedSensorVelocity() + drive.backLeftMotor.getSelectedSensorVelocity() + drive.backRightMotor.getSelectedSensorVelocity()) / 88000; //adds the native volocity of all motor before dividing be the RPM equation times 4
+      //RPM = drive.frontLeftMotor.getSelectedSensorVelocity() / 22000;
+    }
+    else 
+      RPM = 0;
+    
+    SmartDashboard.putNumber("frontleftmotor native units", Math.ceil(drive.frontLeftMotor.getSelectedSensorVelocity()));
+    SmartDashboard.putNumber("frontrightmotor native units", Math.ceil(drive.frontRightMotor.getSelectedSensorVelocity()));
+
+    
     double leftSlider, rightSlider;
 
     xControl.desired = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, .2);
@@ -51,25 +77,35 @@ public class mecanumDrive extends CommandBase {
     zControl.desired *= leftSlider;
     rControl.desired *= rightSlider;
 
-    xControl.error = (xControl.desired * 1500) - RPM;
-    zControl.error = (zControl.desired * 1500) - RPM;
-    rControl.error = (rControl.desired * 1500) - RPM;
+    xControl.error = (xControl.desired) - RPM;
+    zControl.error = (zControl.desired) - RPM;
+    rControl.error = (rControl.desired) - RPM;
+
+    SmartDashboard.putNumber("X Error", xControl.error);
+    SmartDashboard.putNumber("R Error", rControl.error);
 
     xControl.getIntergralZone();
     zControl.getIntergralZone();
+
+    SmartDashboard.putNumber("x integral top", xControl.integralTop);
+
     rControl.getIntergralZone();
 
     xControl.getPidOut();
     zControl.getPidOut();
     rControl.getPidOut();
 
-    drive.mecanumDrive(xControl.Output(), zControl.Output(), rControl.Output());  
-  
+    drive.mecanumDrive(xControl.Output() * 2, zControl.Output() * 2, rControl.Output() * 2);  
+    //drive.mecanumDrive(xControl.desired, zControl.desired, rControl.desired);
     SmartDashboard.putNumber("Volocity: Native Units", drive.frontLeftMotor.getSelectedSensorVelocity()); //get native unit volocity
     if (drive.frontLeftMotor.getSelectedSensorVelocity() == 0){
       SmartDashboard.putNumber("Volocity: RPM", 0);  }
     else { SmartDashboard.putNumber("Volocity: RPM", Math.ceil(RPM)); //get rounded RPM
    }
+   SmartDashboard.putNumber("xControl Out", xControl.Output());
+   SmartDashboard.putNumber("zControl Out", zControl.Output());
+   SmartDashboard.putNumber("rControl Out", rControl.Output());
+
   }
 
   public double checkDeadband (Joystick _joystick, int axis, double deadband) {

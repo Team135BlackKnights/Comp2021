@@ -5,7 +5,7 @@ public class pidControl {
 
     public void getIntergralZone(){
       integralTop = desired * 1.34;
-      integralBottom = desired - (desired * -.34);
+      integralBottom = desired - (desired * 1.34);
     }
 
     public void getPidOut(){

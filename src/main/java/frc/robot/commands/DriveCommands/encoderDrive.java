@@ -11,6 +11,7 @@ public class encoderDrive extends CommandBase{
     public encoderDrive(Drive subsystem, double _leftDesired, double _rightDesired){//, double _centralDesired) {
         leftDesired = _leftDesired;
         rightDesired = _rightDesired;
+        drive = subsystem;
        // centralDesired = _centralDesired;
         addRequirements(drive);
     }
@@ -20,7 +21,7 @@ public class encoderDrive extends CommandBase{
         drive.resetEncoders();
         leftError = leftDesired - drive.getLeftDistance();
         rightError = rightDesired - drive.getRightDistance();
-        centralError = centralDesired - drive.getCentralDistance(); //get the distance to the desired pos
+        //centralError = centralDesired - drive.getCentralDistance(); //get the distance to the desired pos
         }
 
     @Override
@@ -31,11 +32,11 @@ public class encoderDrive extends CommandBase{
         
         double currentLeftPos = drive.getLeftDistance();
         double currentRightPos = drive.getRightDistance();
-        double currentCentralPos = drive.getCentralDistance();
+        //double currentCentralPos = drive.getCentralDistance();
 
         leftError = currentLeftPos - leftDesired;
         rightError = currentRightPos - rightDesired;
-        centralError = currentCentralPos - centralDesired; //get distance to disired pos
+        //centralError = currentCentralPos - centralDesired; //get distance to disired pos
 
         double leftPower = leftError/60;
         double rightPower = rightError/60;
@@ -54,7 +55,7 @@ public class encoderDrive extends CommandBase{
 
        // centralPower = limit((centralPower * 1.4) + (centralMinAlt * .26), .7, -7); //limit power second round .26 is max
 
-        drive.ArcadeDrive(leftPower, rightPower); 
+        drive.mecanumDrive(leftPower, rightPower, 0); 
        // drive.centralMotor.set(centralPower); //drive
     }
 
@@ -70,7 +71,7 @@ public class encoderDrive extends CommandBase{
     @Override
     public void end(boolean interrupted){
         drive.ArcadeDrive(0,0);
-        drive.centralMotor.set(0); //zero power at end
+        //drive.centralMotor.set(0); //zero power at end
     }
 
     @Override
