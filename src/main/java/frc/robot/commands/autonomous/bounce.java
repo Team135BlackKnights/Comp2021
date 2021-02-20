@@ -8,7 +8,7 @@ import frc.robot.subsystems.Drive;
 public class bounce extends SequentialCommandGroup{
     public bounce (Drive drive) {
         super(
-            parallel(
+            sequence(
             new encoderDrive(drive, 10, 10),
             new angleDrive(drive, 90),
             new encoderDrive(drive, 10, 10)

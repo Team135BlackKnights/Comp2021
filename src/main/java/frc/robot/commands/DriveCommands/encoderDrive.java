@@ -3,68 +3,73 @@ package frc.robot.commands.DriveCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.pidControl;
 
 public class encoderDrive extends CommandBase{
-    public double leftDesired, rightDesired, leftError, rightError, centralError;
+
+    public pidControl xControl = new pidControl(), zControl = new pidControl();
     public Drive drive;
     public boolean isFinished;
 
-    public encoderDrive(Drive subsystem, double _leftDesired, double _rightDesired){//, double _centralDesired) {
-        leftDesired = _leftDesired;
-        rightDesired = _rightDesired;
+    public encoderDrive(Drive subsystem, double xDesired, double zDesired){
+        xControl.desired = xDesired;
+        zControl.desired = zDesired;
         drive = subsystem;
-       // centralDesired = _centralDesired;
         addRequirements(drive);
     }
 
     @Override
     public void initialize() {
+        //reset encoder values and find distance to target position
         drive.resetEncoders();
-        leftError = leftDesired - drive.getLeftDistance();
-        rightError = rightDesired - drive.getRightDistance();
-        //centralError = centralDesired - drive.getCentralDistance(); //get the distance to the desired pos
-        }
+        xControl.error = xControl.desired - drive.getFrontDistance();
+        zControl.error =  zControl.desired - drive.getSideDistance();
+
+        SmartDashboard.putNumber("Z desired", zControl.desired);
+
+        xControl.kP = 1;
+        xControl.kI = .1;
+        
+        zControl.kP = 1;
+        zControl.kI = .1;
+    }
 
     @Override
     public void execute() {
-        if (Math.abs(leftError) < 5 && Math.abs(rightError) < 5 && Math.abs(centralError) < 5){
+        if (Math.abs(xControl.error) < 5  && Math.abs(zControl.error) < 5){
             isFinished = true;
         } //check to see if arived
         
-        double currentLeftPos = drive.getLeftDistance();
-        double currentRightPos = drive.getRightDistance();
-        //double currentCentralPos = drive.getCentralDistance();
+        xControl.error = xControl.desired - drive.getFrontDistance();
+        zControl.error = zControl.desired - drive.getSideDistance();
+        //get distance to disired pos
+        SmartDashboard.putNumber("Current Distance", drive.getSideDistance());
 
-        leftError = currentLeftPos - leftDesired;
-        rightError = currentRightPos - rightDesired;
-        //centralError = currentCentralPos - centralDesired; //get distance to disired pos
+        SmartDashboard.putNumber("Z Error", zControl.error);
 
-        double leftPower = leftError/60;
-        double rightPower = rightError/60;
-       // double centralPower = centralError/60; //get the power to set to arive at disired pos
+        xControl.proportionalOutput = xControl.error/60;
+        zControl.proportionalOutput = zControl.error/60;
+        //get the power to set to arive at disired pos
 
-        double leftMinAlt = leftError > 0 ? 1: -1;
-        double rightMinAlt = rightError > 0 ? 1: -1;
-        //double centralMinAlt = centralPower > 0 ? 1: -1; //min power 
+        SmartDashboard.putNumber("Z proportional", zControl.proportionalOutput);
 
-        leftPower = limit(leftPower, .45, -.45);
-        rightPower = limit(rightPower, .45, -.45);
-       // centralPower = limit(centralPower, .45, -.45); //limit power first calc
 
-        leftPower = (leftPower * 1.4) + (leftMinAlt * .04);
-        rightPower = (rightPower * 1.4) + (rightMinAlt * .04);
+        xControl.getIntergralZone(); 
+        zControl.getIntergralZone();
 
-       // centralPower = limit((centralPower * 1.4) + (centralMinAlt * .26), .7, -7); //limit power second round .26 is max
+        xControl.getPidOut();
+        zControl.getPidOut(); //use the subsystem to calc the pid output
 
-        drive.mecanumDrive(0, leftPower, 0); 
-       // drive.centralMotor.set(centralPower); //drive
+        SmartDashboard.putNumber("Z output", zControl.Output());
+
+
+        drive.mecanumDrive(xControl.Output(), zControl.Output(), 0); 
+        //drive
 
         SmartDashboard.putNumber("frontleftmotor native units", Math.ceil(drive.frontLeftMotor.getSelectedSensorVelocity()));
         SmartDashboard.putNumber("frontrightmotor native units", Math.ceil(drive.frontRightMotor.getSelectedSensorVelocity()));
         SmartDashboard.putNumber("backrightmotor native units", Math.ceil(drive.backRightMotor.getSelectedSensorVelocity()));
         SmartDashboard.putNumber("backleftmotor native units", Math.ceil(drive.backLeftMotor.getSelectedSensorVelocity()));
-
-
     }
 
     public static double limit(double x, double upperLimit, double lowerLimit) {

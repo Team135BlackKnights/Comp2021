@@ -77,20 +77,12 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     mecanumDrive.driveCartesian(xSpeed, ySpeed, zRotation);
   }
 
-  public double getPosition(WPI_TalonFX motor) {
-    return motor.getSelectedSensorPosition(); //get the motors pos
+  public double getSideDistance() {
+    return ((frontLeftMotor.getSelectedSensorPosition() / 4096) + (backLeftMotor.getSelectedSensorPosition() / 4096)) / 2; //avrage left side pos
   }
 
-  public double getLeftDistance() {
-    return (getPosition(frontLeftMotor) + getPosition(backLeftMotor)) / 2; //avrage left side pos
-  }
-
-  public double getRightDistance() {
-    return (getPosition(frontRightMotor) + getPosition(backRightMotor)) / 2; //avrage right side pos
-  }
-
-  public double getCentralDistance() {
-    return getPosition(centralMotor);
+  public double getFrontDistance() {
+    return ((frontLeftMotor.getSelectedSensorPosition() / 4096) + (frontRightMotor.getSelectedSensorPosition() / 4096)) / 2; //avrage right side pos
   }
 
   public void resetEncoders () {
@@ -98,7 +90,6 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     frontRightMotor.setSelectedSensorPosition(0);
     backLeftMotor.setSelectedSensorPosition(0);
     backRightMotor.setSelectedSensorPosition(0);
-    //centralMotor.setSelectedSensorPosition(0);
   }
 
   @Override
