@@ -1,10 +1,11 @@
 package frc.robot.commands.DriveCommands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
 
 public class encoderDrive extends CommandBase{
-    public double leftDesired, rightDesired, centralDesired, leftError, rightError, centralError;
+    public double leftDesired, rightDesired, leftError, rightError, centralError;
     public Drive drive;
     public boolean isFinished;
 
@@ -55,8 +56,15 @@ public class encoderDrive extends CommandBase{
 
        // centralPower = limit((centralPower * 1.4) + (centralMinAlt * .26), .7, -7); //limit power second round .26 is max
 
-        drive.mecanumDrive(leftPower, rightPower, 0); 
+        drive.mecanumDrive(0, leftPower, 0); 
        // drive.centralMotor.set(centralPower); //drive
+
+        SmartDashboard.putNumber("frontleftmotor native units", Math.ceil(drive.frontLeftMotor.getSelectedSensorVelocity()));
+        SmartDashboard.putNumber("frontrightmotor native units", Math.ceil(drive.frontRightMotor.getSelectedSensorVelocity()));
+        SmartDashboard.putNumber("backrightmotor native units", Math.ceil(drive.backRightMotor.getSelectedSensorVelocity()));
+        SmartDashboard.putNumber("backleftmotor native units", Math.ceil(drive.backLeftMotor.getSelectedSensorVelocity()));
+
+
     }
 
     public static double limit(double x, double upperLimit, double lowerLimit) {

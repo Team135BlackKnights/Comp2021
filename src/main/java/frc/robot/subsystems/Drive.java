@@ -98,7 +98,7 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     frontRightMotor.setSelectedSensorPosition(0);
     backLeftMotor.setSelectedSensorPosition(0);
     backRightMotor.setSelectedSensorPosition(0);
-    centralMotor.setSelectedSensorPosition(0);
+    //centralMotor.setSelectedSensorPosition(0);
   }
 
   @Override

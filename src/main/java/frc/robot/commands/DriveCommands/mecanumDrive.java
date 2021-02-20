@@ -49,16 +49,19 @@ public class mecanumDrive extends CommandBase {
 
     //final double RPM = 78640800 / (drive.frontLeftMotor.getSelectedSensorVelocity() + drive.frontRightMotor.getSelectedSensorVelocity() + drive.backLeftMotor.getSelectedSensorVelocity() + drive.backRightMotor.getSelectedSensorVelocity()); //adds the native volocity of all motor before dividing be the RPM equation times 4
     
-    if (drive.frontLeftMotor.getSelectedSensorVelocity() + drive.frontRightMotor.getSelectedSensorVelocity() + drive.backLeftMotor.getSelectedSensorVelocity() + drive.backRightMotor.getSelectedSensorVelocity() != 0) {
       //adds the native volocity of all motor before dividing be the RPM equation times 4
-      RPM = (drive.frontLeftMotor.getSelectedSensorVelocity() + drive.frontRightMotor.getSelectedSensorVelocity() + drive.backLeftMotor.getSelectedSensorVelocity() + drive.backRightMotor.getSelectedSensorVelocity()) / 88000; //adds the native volocity of all motor before dividing be the RPM equation times 4
-      //RPM = drive.frontLeftMotor.getSelectedSensorVelocity() / 22000;
-    }
-    else 
-      RPM = 0;
+    RPM = (drive.frontLeftMotor.getSelectedSensorVelocity() + drive.frontRightMotor.getSelectedSensorVelocity() + drive.backLeftMotor.getSelectedSensorVelocity() + drive.backRightMotor.getSelectedSensorVelocity()) / 88000; //adds the native volocity of all motor before dividing be the RPM equation times 4
+    //RPM = drive.backLeftMotor.getSelectedSensorVelocity() / 22000;
+      //RPM = (drive.frontLeftMotor.getSelectedSensorVelocity() + drive.frontRightMotor.getSelectedSensorVelocity()) / 44000;
+      //RPM = (Math.abs(drive.frontLeftMotor.getSelectedSensorVelocity()) + Math.abs(drive.frontRightMotor.getSelectedSensorVelocity()) + Math.abs(drive.backLeftMotor.getSelectedSensorVelocity()) +  Math.abs(drive.backRightMotor.getSelectedSensorVelocity())) / 88000; //adds the native volocity of all motor before dividing be the RPM equation times 4
+
+    
     
     SmartDashboard.putNumber("frontleftmotor native units", Math.ceil(drive.frontLeftMotor.getSelectedSensorVelocity()));
     SmartDashboard.putNumber("frontrightmotor native units", Math.ceil(drive.frontRightMotor.getSelectedSensorVelocity()));
+    SmartDashboard.putNumber("backrightmotor native units", Math.ceil(drive.backRightMotor.getSelectedSensorVelocity()));
+    SmartDashboard.putNumber("backleftmotor native units", Math.ceil(drive.backLeftMotor.getSelectedSensorVelocity()));
+
 
     
     double leftSlider, rightSlider;
@@ -66,6 +69,8 @@ public class mecanumDrive extends CommandBase {
     xControl.desired = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, .2);
     zControl.desired = checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2);
     rControl.desired = checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2);
+
+    SmartDashboard.putNumber("desired", rControl.desired);
 
     leftSlider = -RobotContainer.leftJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
     rightSlider = -RobotContainer.rightJoystick.getRawAxis(RobotMap.SLIDER_AXIS); //setting parts
@@ -77,19 +82,24 @@ public class mecanumDrive extends CommandBase {
     zControl.desired *= leftSlider;
     rControl.desired *= rightSlider;
 
-    xControl.error = (xControl.desired) - RPM;
-    zControl.error = (zControl.desired) - RPM;
-    rControl.error = (rControl.desired) - RPM;
-
-    SmartDashboard.putNumber("X Error", xControl.error);
+    if (checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2) != 0) {
+      rControl.error = (rControl.desired) - RPM;
+      zControl.error = 0;
+      xControl.error = 0;
+    }
+    else {
+      xControl.error = (xControl.desired) - RPM;
+      zControl.error = (zControl.desired) - RPM;  
+      rControl.error = 0;
+    }
+   
     SmartDashboard.putNumber("R Error", rControl.error);
 
     xControl.getIntergralZone();
     zControl.getIntergralZone();
-
-    SmartDashboard.putNumber("x integral top", xControl.integralTop);
-
     rControl.getIntergralZone();
+    SmartDashboard.putNumber("r integral top", rControl.integralTop);
+
 
     xControl.getPidOut();
     zControl.getPidOut();
@@ -100,11 +110,12 @@ public class mecanumDrive extends CommandBase {
     SmartDashboard.putNumber("Volocity: Native Units", drive.frontLeftMotor.getSelectedSensorVelocity()); //get native unit volocity
     if (drive.frontLeftMotor.getSelectedSensorVelocity() == 0){
       SmartDashboard.putNumber("Volocity: RPM", 0);  }
-    else { SmartDashboard.putNumber("Volocity: RPM", Math.ceil(RPM)); //get rounded RPM
+    else { SmartDashboard.putNumber("Volocity: RPM", RPM); //get rounded RPM
    }
-   SmartDashboard.putNumber("xControl Out", xControl.Output());
-   SmartDashboard.putNumber("zControl Out", zControl.Output());
+   //SmartDashboard.putNumber("xControl Out", xControl.Output());
+   //SmartDashboard.putNumber("zControl Out", zControl.Output());
    SmartDashboard.putNumber("rControl Out", rControl.Output());
+   SmartDashboard.putNumber("Proportional R", rControl.proportionalOutput);
 
   }
 
