@@ -70,9 +70,6 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     backLeftMotor.setNeutralMode(neutralMode);
   }
 
-  public void ArcadeDrive (double lateralPower, double rotatePower) {
-    differentialDrive.arcadeDrive(lateralPower, rotatePower); //drive function
-  }
   public void mecanumDrive (double xSpeed, double ySpeed, double zRotation) {
     mecanumDrive.driveCartesian(xSpeed, ySpeed, zRotation);
   }

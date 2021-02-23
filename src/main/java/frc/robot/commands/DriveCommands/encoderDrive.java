@@ -20,6 +20,8 @@ public class encoderDrive extends CommandBase{
 
     @Override
     public void initialize() {
+        SmartDashboard.putBoolean("encoder drive", true);
+
         //reset encoder values and find distance to target position
         drive.resetEncoders();
         xControl.error = xControl.desired - drive.getFrontDistance();
@@ -83,12 +85,13 @@ public class encoderDrive extends CommandBase{
 
     @Override
     public void end(boolean interrupted){
-        drive.ArcadeDrive(0,0);
+        drive.mecanumDrive(0,0,0);
         //drive.centralMotor.set(0); //zero power at end
     }
 
     @Override
     public boolean isFinished(){
+        SmartDashboard.putBoolean("encoder drive", false);
         return isFinished;
     }
 }

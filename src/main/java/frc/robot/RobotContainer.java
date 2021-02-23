@@ -66,10 +66,9 @@ public class RobotContainer implements RobotMap {
 
   private void configureButtonBindings() {
 
-    rightButton3.whenPressed(new angleDrive(drive, 90));
+    rightButton3.whenPressed(new angleDrive(drive, 80));
     manipButton4.whenPressed(new fireSolenoid(intake));
-    rightButton5.whenPressed(new encoderDrive(drive, 10, 0));
-
+    rightButton5.whenPressed(new encoderDrive(drive, 40, 0));
 
   }
 

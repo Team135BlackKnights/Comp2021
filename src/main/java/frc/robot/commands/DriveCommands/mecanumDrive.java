@@ -67,7 +67,7 @@ public class mecanumDrive extends CommandBase {
     double leftSlider, rightSlider;
 
     xControl.desired = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, .2);
-    zControl.desired = checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2);
+    zControl.desired = -checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2);
     rControl.desired = checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2);
 
     SmartDashboard.putNumber("desired", rControl.desired);

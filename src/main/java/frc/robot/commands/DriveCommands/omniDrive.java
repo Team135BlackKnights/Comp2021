@@ -54,7 +54,7 @@ public class omniDrive extends CommandBase {
       _Drive.backLeftMotor.set(lateralMoveSpeed * leftSlider);
     }
     else {
-      _Drive.ArcadeDrive(lateralMoveSpeed * leftSlider, rotateSpeed * rightSlider); //standerd arcade drive
+      _Drive.mecanumDrive(lateralMoveSpeed * leftSlider, rotateSpeed * rightSlider, 0); //standerd arcade drive
     }
   }
 
