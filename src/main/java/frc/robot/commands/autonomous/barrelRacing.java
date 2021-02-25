@@ -8,11 +8,13 @@ import frc.robot.subsystems.Drive;
 public class barrelRacing extends SequentialCommandGroup{
     public barrelRacing (Drive drive) {
         super(
-            parallel(
-            new encoderDrive(drive, 120, 0),
+            sequence(
             new encoderDrive(drive, 0, 20),
-            new encoderDrive(drive, -20, 0),
-            new encoderDrive(drive, 0, -20)
+            new angleDrive(drive, 0),
+            new encoderDrive(drive, 0, 20),
+            new encoderDrive(drive, 20, 0),
+            new encoderDrive(drive, 0, -20),
+            new encoderDrive(drive, -20, 0)
             )  
         );
     }
