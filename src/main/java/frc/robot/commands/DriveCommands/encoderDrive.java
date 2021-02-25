@@ -34,6 +34,7 @@ public class encoderDrive extends CommandBase{
         
         zControl.kP = 1;
         zControl.kI = .1;
+        isFinished = false;
     }
 
     @Override
@@ -55,7 +56,6 @@ public class encoderDrive extends CommandBase{
 
         SmartDashboard.putNumber("Z proportional", zControl.proportionalOutput);
 
-
         xControl.getIntergralZone(); 
         zControl.getIntergralZone();
 
@@ -64,9 +64,7 @@ public class encoderDrive extends CommandBase{
 
         SmartDashboard.putNumber("Z output", zControl.Output());
 
-
-        drive.mecanumDrive(xControl.Output(), zControl.Output(), 0); 
-        //drive
+        drive.mecanumDrive(limit(xControl.Output(), 0.5, -.5), limit(zControl.Output(), .5, -.5), 0); 
 
         SmartDashboard.putNumber("frontleftmotor native units", Math.ceil(drive.frontLeftMotor.getSelectedSensorVelocity()));
         SmartDashboard.putNumber("frontrightmotor native units", Math.ceil(drive.frontRightMotor.getSelectedSensorVelocity()));

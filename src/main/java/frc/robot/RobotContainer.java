@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommands.*;
 import frc.robot.commands.IntakeCommands.*;
+import frc.robot.commands.autonomous.barrelRacing;
+import frc.robot.commands.autonomous.bounce;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 
@@ -32,6 +34,7 @@ public class RobotContainer implements RobotMap {
   leftThumb = new JoystickButton(leftJoystick, KOI.THUMB_BUTTON),
 
   leftButton3 = new JoystickButton(leftJoystick, KOI.HANDLE_BOTTOM_LEFT_BUTTON),
+  leftButton4 = new JoystickButton(leftJoystick, KOI.HANDLE_BOTTOM_RIGHT_BUTTON),
   leftButton7 = new JoystickButton(leftJoystick, KOI.BASE_TOP_LEFT_BUTTON),
   leftButton8 = new JoystickButton(leftJoystick, KOI.BASE_TOP_RIGHT_BUTTON),
   leftButton9 = new JoystickButton(leftJoystick, KOI.BASE_MIDDLE_LEFT_BUTTON),
@@ -68,7 +71,8 @@ public class RobotContainer implements RobotMap {
 
     rightButton3.whenPressed(new angleDrive(drive, 80));
     manipButton4.whenPressed(new fireSolenoid(intake));
-    rightButton5.whenPressed(new encoderDrive(drive, 40, 0));
+    rightButton5.whenPressed(new encoderDrive(drive, 0, 20));
+    leftButton4.whenPressed(new barrelRacing(drive));
 
   }
 

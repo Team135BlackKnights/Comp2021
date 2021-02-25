@@ -9,9 +9,9 @@ public class bounce extends SequentialCommandGroup{
     public bounce (Drive drive) {
         super(
             sequence(
-            new encoderDrive(drive, 10, 10),
-            new angleDrive(drive, 90),
-            new encoderDrive(drive, 10, 10)
+            new encoderDrive(drive, 10, 0),
+            //new angleDrive(drive, 90),
+            new encoderDrive(drive, 0, 10)
             )  
         );
     }
