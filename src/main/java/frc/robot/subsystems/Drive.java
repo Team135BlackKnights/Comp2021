@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -15,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.*;
 import edu.wpi.first.wpilibj.I2C;
 
-
 public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   public WPI_TalonFX frontRightMotor, frontLeftMotor, backRightMotor, backLeftMotor, centralMotor;
@@ -24,7 +19,6 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   public SpeedControllerGroup leftMotors, rightMotors;
   public DifferentialDrive differentialDrive;
   public static AHRS navx;
-
 
   public Drive() {
     frontRightMotor = new WPI_TalonFX(FRONT_RIGHT_MOTOR_ID);
@@ -44,15 +38,8 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
 
     setBrakeMode(NeutralMode.Brake);
 
-    //backLeftMotor.set
-
     mecanumDrive = new MecanumDrive(frontLeftMotorCG, backLeftMotorCG, frontRightMotorCG, backRightMotorCG);
-    /*
-    leftMotors = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
-    rightMotors = new SpeedControllerGroup(frontRightMotor, backRightMotor); //create speed controller grouos
-     
-    differentialDrive = new DifferentialDrive(leftMotors, rightMotors); //create the differential drive
-    */
+
     navx = new AHRS(i2cPort);
     navx.reset();
   }
