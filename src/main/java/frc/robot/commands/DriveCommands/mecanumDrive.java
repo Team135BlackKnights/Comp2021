@@ -88,6 +88,13 @@ public class mecanumDrive extends CommandBase {
     SmartDashboard.putNumber("Xout", xControl.Output());
     SmartDashboard.putNumber("Zout", zControl.Output());
 
+
+    SmartDashboard.putNumber("backRightMotor", drive.backRightMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("backLeftMotor", drive.backLeftMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("frontRightMotor", drive.frontRightMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("frontLeftMotor", drive.frontLeftMotor.getSelectedSensorPosition());
+
+
     if (Math.abs(xControl.Output()) < 0.2) {
       drive.mecanumDrive(0, zControl.Output() * 2, rControl.Output() * 2); 
     }
