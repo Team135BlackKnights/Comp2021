@@ -1,4 +1,3 @@
-/*
 package frc.robot.commands.DriveCommands;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -41,27 +40,25 @@ public class motorSepecificControl extends CommandBase {
 
   @Override
   public void execute() {
-    SmartDashboard.putNumber("YAW:", Drive.navx.getYaw());
 
-    if (rotateSpeed > .18 || rotateSpeed < -.18 || moveSpeed > .18 || moveSpeed < -.18 ) {
+    double leftX = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, .2);
+    double leftY = -checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2); //get joystick postion
+    double rightR = checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2);
 
-      theta = (Math.atan2(rotateSpeed, moveSpeed)) - (Math.PI / 2);
-  
-      Px = Math.sqrt(Math.pow(moveSpeed, 2) + Math.pow(rotateSpeed, 2)) * (Math.sin(theta + Math.PI / 4));
-      Py = Math.sqrt(Math.pow(moveSpeed, 2) + Math.pow(rotateSpeed, 2)) * (Math.sin(theta - Math.PI / 4));
-  
-      drive.frontLeftMotor.set(Py);
-      FrontRight.set(-Px);
-      BackLeft.set(Px);
-      BackRight.set(-Py);
-    }
-    else 
-      {
-        FrontLeft.set(0);
-        FrontRight.set(0);
-        BackLeft.set(0);
-        BackRight.set(0);
-      }
+    double r = Math.hypot(leftX, leftY);
+    double robotAngle = Math.atan2(leftY, leftX) - Math.PI / 4;
+    double rightX = rightR;
+    final double v1 = r * Math.cos(robotAngle) + rightX;
+    final double v2 = r * Math.sin(robotAngle) - rightX;
+    final double v3 = r * Math.sin(robotAngle) + rightX;
+    final double v4 = r * Math.cos(robotAngle) - rightX;
+
+    drive.frontLeftMotor.set(v1);
+    drive.frontRightMotor.set(v2);
+    drive.backLeftMotor.set(v3)
+    drive.backRightMotor.set(v4);
+ 
+}
     
   }
 
@@ -79,4 +76,3 @@ public class motorSepecificControl extends CommandBase {
     return false;
   }
 }
-*/
