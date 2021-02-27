@@ -10,15 +10,15 @@ import frc.robot.subsystems.pidControl;
 
 // An example command that uses an example subsystem. 
 public class motorSepecificControl extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Drive drive;
   RobotContainer container;
   double RPM, Px, Py, theta;
-  public pidControl xControl = new pidControl(), zControl= new pidControl(), rControl = new pidControl();
+  public pidControl xControl = new pidControl(), zControl = new pidControl(), rControl = new pidControl();
 
   public motorSepecificControl(Drive subsystem) {
     drive = subsystem;
-    
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -42,7 +42,7 @@ public class motorSepecificControl extends CommandBase {
   public void execute() {
 
     double leftX = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, .2);
-    double leftY = -checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2); //get joystick postion
+    double leftY = -checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2); // get joystick postion
     double rightR = checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2);
 
     double r = Math.hypot(leftX, leftY);
@@ -55,20 +55,22 @@ public class motorSepecificControl extends CommandBase {
 
     drive.frontLeftMotor.set(v1);
     drive.frontRightMotor.set(v2);
-    drive.backLeftMotor.set(v3)
+    drive.backLeftMotor.set(v3);
     drive.backRightMotor.set(v4);
- 
-}
-    
+
   }
 
-  public double checkDeadband (Joystick _joystick, int axis, double deadband) {
-    return (Math.abs(_joystick.getRawAxis(axis)) < deadband ? 0.0 : _joystick.getRawAxis(axis));// if the joystick is less than the deadband return 0 else reutn joystick
+  public double checkDeadband(Joystick _joystick, int axis, double deadband) {
+    return (Math.abs(_joystick.getRawAxis(axis)) < deadband ? 0.0 : _joystick.getRawAxis(axis));// if the joystick is
+    // less than the
+    // deadband return 0
+    // else reutn joystick
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
