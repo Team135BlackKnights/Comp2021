@@ -64,7 +64,7 @@ public class RobotContainer implements RobotMap {
   public RobotContainer() {
 
     // Configure the button bindings
-    drive.setDefaultCommand(new motorSpecificControl(drive));
+    drive.setDefaultCommand(new mecanumDrive(drive));
     
     configureButtonBindings();
   }
