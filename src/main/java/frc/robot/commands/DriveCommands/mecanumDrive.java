@@ -39,7 +39,7 @@ public class mecanumDrive extends CommandBase {
 
   @Override
   public void execute() {
-    
+
     final double RPM = (drive.frontLeftMotor.getSelectedSensorVelocity()
         + drive.frontRightMotor.getSelectedSensorVelocity() + drive.backLeftMotor.getSelectedSensorVelocity()
         + drive.backRightMotor.getSelectedSensorVelocity()) / 88000; // adds the native volocity of all motor before

@@ -9,14 +9,14 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.pidControl;
 
 // An example command that uses an example subsystem. 
-public class motorSepecificControl extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+public class motorSpecificControl extends CommandBase {
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drive drive;
   RobotContainer container;
   double RPM, Px, Py, theta;
   public pidControl xControl = new pidControl(), zControl = new pidControl(), rControl = new pidControl();
 
-  public motorSepecificControl(Drive subsystem) {
+  public motorSpecificControl(Drive subsystem) {
     drive = subsystem;
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -54,10 +54,10 @@ public class motorSepecificControl extends CommandBase {
     final double v4 = r * Math.cos(robotAngle) - rightX;
 
     drive.frontLeftMotor.set(v1);
-    drive.frontRightMotor.set(v2);
+    drive.frontRightMotor.set(-v2);
     drive.backLeftMotor.set(v3);
-    drive.backRightMotor.set(v4);
-
+    drive.backRightMotor.set(-v4);
+ 
   }
 
   public double checkDeadband(Joystick _joystick, int axis, double deadband) {
