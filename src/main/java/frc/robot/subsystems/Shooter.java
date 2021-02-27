@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -9,30 +11,28 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
 public class Shooter extends SubsystemBase implements RobotMap.SHOOTER {
-    public CANSparkMax shooterPitchMotor;
-    public CANEncoder shooterPitchEncoder;
+    public WPI_TalonFX shooterPitchMotor;
 
-    public CANSparkMax shooterLauncherMasterMotor;
-    public CANSparkMax shooterLauncherSlaveMotor;
-    public CANEncoder shooterLauncherMasterEncoder;
+    public WPI_TalonFX shooterLauncherLeaderMotor;
+    public WPI_TalonFX shooterLauncherFollowerMotor;
 
     public Shooter(){
        //shooter motor config
-       shooterPitchMotor = new CANSparkMax (SHOOTER_PICH_SPARK, MotorType.kBrushless); //assigns the code to motor
-       shooterPitchMotor.setIdleMode(IdleMode.kBrake);
-       shooterPitchMotor.enableVoltageCompensation(12);
-       shooterPitchMotor.getBusVoltage();
-       shooterPitchEncoder = shooterPitchMotor.getEncoder();
+       shooterPitchMotor = new WPI_TalonFX(SHOOTER_PICH_SPARK); //assigns the code to motor
+       voltageComp(shooterPitchMotor);
 
-       shooterLauncherSlaveMotor = new CANSparkMax (SHOOTER_LAUNCHER_SLAVE, MotorType.kBrushless);
-       shooterLauncherSlaveMotor.follow(shooterLauncherMasterMotor);
+       shooterLauncherFollowerMotor = new WPI_TalonFX(SHOOTER_LAUNCHER_FOLLOWER);
+       shooterLauncherFollowerMotor.follow(shooterLauncherLeaderMotor);
+        voltageComp(shooterLauncherFollowerMotor);
 
-       shooterLauncherMasterMotor = new CANSparkMax (SHOOTER_LAUNCHER_MASTER, MotorType.kBrushless);
-       shooterLauncherMasterMotor.setIdleMode(IdleMode.kCoast);
-       shooterLauncherMasterMotor.enableVoltageCompensation(12);
-       shooterLauncherMasterMotor.getBusVoltage();
-       shooterLauncherMasterEncoder = shooterLauncherMasterMotor.getEncoder();
-
+       shooterLauncherLeaderMotor = new WPI_TalonFX(SHOOTER_LAUNCHER_LEADER);
+       voltageComp(shooterLauncherLeaderMotor);
        
     }
+    public void voltageComp(TalonFX talon) {
+        talon.enableVoltageCompensation(true);
+        talon.configVoltageCompSaturation(12);
+      }
+
+    
 }

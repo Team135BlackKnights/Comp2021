@@ -34,8 +34,8 @@ public interface RobotMap {
     public interface SHOOTER {
         final int
         SHOOTER_PICH_SPARK = 15,
-        SHOOTER_LAUNCHER_MASTER = 16,
-        SHOOTER_LAUNCHER_SLAVE = 17;
+        SHOOTER_LAUNCHER_LEADER = 16,
+        SHOOTER_LAUNCHER_FOLLOWER = 17;
     }
 
 
