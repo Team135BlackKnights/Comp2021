@@ -49,7 +49,6 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     talon.configVoltageCompSaturation(12);
   }
 
-
   public void setBrakeMode(NeutralMode neutralMode) {
     frontRightMotor.setNeutralMode(neutralMode);
     frontLeftMotor.setNeutralMode(neutralMode);
@@ -57,19 +56,21 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     backLeftMotor.setNeutralMode(neutralMode);
   }
 
-  public void mecanumDrive (double xSpeed, double ySpeed, double zRotation) {
+  public void mecanumDrive(double xSpeed, double ySpeed, double zRotation) {
     mecanumDrive.driveCartesian(xSpeed, ySpeed, zRotation);
   }
 
   public double getSideDistance() {
-    return ((frontLeftMotor.getSelectedSensorPosition() / 4096) + (backLeftMotor.getSelectedSensorPosition() / 4096)) / 2; //avrage left side pos
+    return ((frontLeftMotor.getSelectedSensorPosition() / 4096) + (backLeftMotor.getSelectedSensorPosition() / 4096))
+        / 2; // avrage left side pos
   }
 
   public double getFrontDistance() {
-    return ((frontLeftMotor.getSelectedSensorPosition() / 4096) + (frontRightMotor.getSelectedSensorPosition() / 4096)) / 2; //avrage right side pos
+    return ((frontLeftMotor.getSelectedSensorPosition() / 4096) + (frontRightMotor.getSelectedSensorPosition() / 4096))
+        / 2; // avrage right side pos
   }
 
-  public void resetEncoders () {
+  public void resetEncoders() {
     frontLeftMotor.setSelectedSensorPosition(0);
     frontRightMotor.setSelectedSensorPosition(0);
     backLeftMotor.setSelectedSensorPosition(0);
@@ -80,7 +81,6 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
 
   @Override
   public void simulationPeriodic() {
