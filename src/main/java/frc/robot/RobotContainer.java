@@ -7,10 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.DriveCommands.*;
-import frc.robot.commands.IntakeCommands.*;
+import frc.robot.commands.DriveCommands.angleDrive;
+import frc.robot.commands.DriveCommands.encoderDrive;
+import frc.robot.commands.DriveCommands.motorSpecificControl;
+import frc.robot.commands.IntakeCommands.fireSolenoid;
 import frc.robot.commands.autonomous.barrelRacing;
-import frc.robot.commands.autonomous.bounce;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
 
