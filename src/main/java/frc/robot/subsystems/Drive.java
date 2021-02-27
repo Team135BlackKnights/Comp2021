@@ -61,13 +61,11 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   }
 
   public double getSideDistance() {
-    return ((frontLeftMotor.getSelectedSensorPosition() / 4096) + (backLeftMotor.getSelectedSensorPosition() / 4096))
-        / 2; // avrage left side pos
+    return (((frontLeftMotor.getSelectedSensorPosition() / 788) + (backLeftMotor.getSelectedSensorPosition() / 788)) / 2); // avrage side pos
   }
 
   public double getFrontDistance() {
-    return ((frontLeftMotor.getSelectedSensorPosition() / 4096) + (frontRightMotor.getSelectedSensorPosition() / 4096))
-        / 2; // avrage right side pos
+    return (((frontLeftMotor.getSelectedSensorPosition() / 788) + (frontRightMotor.getSelectedSensorPosition() / 788)) / 2); // avrage front side pos
   }
 
   public void resetEncoders() {

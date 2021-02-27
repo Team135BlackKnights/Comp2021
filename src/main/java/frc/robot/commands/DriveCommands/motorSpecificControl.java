@@ -36,13 +36,14 @@ public class motorSpecificControl extends CommandBase {
     rControl.kP = .2;
     rControl.kI = .01;
 
+
   }
 
   @Override
   public void execute() {
 
     double leftX = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, .2);
-    double leftY = -checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2); // get joystick postion
+    double leftY = checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2); // get joystick postion
     double rightR = checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2);
 
     double r = Math.hypot(leftX, leftY);
@@ -56,7 +57,7 @@ public class motorSpecificControl extends CommandBase {
     drive.frontLeftMotor.set(v1);
     drive.frontRightMotor.set(-v2);
     drive.backLeftMotor.set(v3);
-    drive.backRightMotor.set(-v4);
+    drive.backRightMotor.set(-v4 - v4 * .20);
  
   }
 

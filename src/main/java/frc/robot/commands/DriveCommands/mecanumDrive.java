@@ -45,19 +45,19 @@ public class mecanumDrive extends CommandBase {
         + drive.backRightMotor.getSelectedSensorVelocity()) / 88000; // adds the native volocity of all motor before
                                                                      // dividing be the RPM equation times 4
 
-    xControl.desired = checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, .2);
-    zControl.desired = -checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2); // get joystick postion
-    rControl.desired = checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2);
+    xControl.desired = -checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, .2);
+    zControl.desired = checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2); // get joystick postion
+    rControl.desired = -checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2);
 
     leftSlider = RobotContainer.leftJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
     rightSlider = RobotContainer.rightJoystick.getRawAxis(RobotMap.SLIDER_AXIS); // setting sliders to use as speed mod
 
-    leftSlider = (leftSlider + 1) / -2;
-    rightSlider = (rightSlider + 1) / -2; // sliders to limit speed
+    leftSlider = (leftSlider + 1) / 2;
+    rightSlider = (rightSlider + 1) / 2; // sliders to limit speed
 
-    xControl.desired *= leftSlider;
-    zControl.desired *= leftSlider; // limit speed with sliders
-    rControl.desired *= rightSlider;
+    xControl.desired *= -leftSlider;
+    zControl.desired *= -leftSlider; // limit speed with sliders
+    rControl.desired *= -rightSlider;
 
     if (checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2) != 0) { // fix turning interfearing
                                                                                           // with drive
@@ -81,6 +81,10 @@ public class mecanumDrive extends CommandBase {
     } else {
       drive.mecanumDrive(xControl.Output() * 2, zControl.Output() * 2, rControl.Output() * 2);
     }
+
+    SmartDashboard.putNumber("front right encoder", drive.frontRightMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("back Left encoder", drive.backLeftMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("left side encoders", drive.getSideDistance());
 
     SmartDashboard.putNumber("YAW:", Drive.navx.getYaw());
 
