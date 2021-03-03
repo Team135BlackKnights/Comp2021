@@ -17,8 +17,8 @@ public class runShooter extends CommandBase{
 
     @Override
     public void execute() {
-        shooter.shooterLauncherLeaderMotor.set(RobotContainer.manipJoystick.getRawAxis(3));
-        shooter.shooterLauncherFollowerMotor.set(RobotContainer.manipJoystick.getRawAxis(3));
+        shooter.shooterLauncherLeaderMotor.set(RobotContainer.manipJoystick.getRawAxis(1));
+        shooter.shooterLauncherFollowerMotor.set(-RobotContainer.manipJoystick.getRawAxis(1));
     }
 
     // Called once the command ends or is interrupted.

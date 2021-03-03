@@ -23,6 +23,7 @@ public class resetEncoders extends CommandBase {
     // Runs method to reset the encoders from drivetrain
     drive.resetEncoders();
     drive.navx.reset();
+    addRequirements(drive);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

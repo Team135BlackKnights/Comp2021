@@ -30,6 +30,12 @@ public class encoderDrive extends CommandBase {
 
         // reset encoder values and find distance to target position
         drive.resetEncoders();
+
+        while (drive.getSideDistance() != 0){
+        //    drive.resetEncoders();
+            
+        }
+
         xControl.error = xControl.desired - drive.getFrontDistance();
         zControl.error = zControl.desired - drive.getSideDistance();
 
@@ -84,6 +90,9 @@ public class encoderDrive extends CommandBase {
         }
 
         drive.mecanumDrive(0, pidOutput, 0);
+        if (pidOutput < 0 ) {
+            isFinished = true;
+        }
         //drive.mecanumDrive(0,.2,0);
 
         lastOutput = pidOutput;
@@ -91,9 +100,10 @@ public class encoderDrive extends CommandBase {
 
         SmartDashboard.putNumber("test desired", zControl.desired);
         SmartDashboard.putNumber("test error", zControl.error);
-        SmartDashboard.putNumber("test Z output", limit(zControl.Output(), .4, -.4));
+        SmartDashboard.putNumber("test Z output", pidOutput);
         SmartDashboard.putNumber("test Z output no limit", zControl.Output());
-        SmartDashboard.putNumber("test X output", limit(xControl.Output(), .4, -.4));
+        SmartDashboard.putNumber("test X output", limit(xControl.Output(), .6, -.6));
+        SmartDashboard.putNumber("TImer", timer.get());
 
 
         SmartDashboard.putNumber("frontleftmotor native units",
@@ -119,6 +129,7 @@ public class encoderDrive extends CommandBase {
     public void end(boolean interrupted) {
         drive.mecanumDrive(0, 0, 0);
         lastOutput = 0;
+        timer.stop();
         isFinished = false;
     }
 
