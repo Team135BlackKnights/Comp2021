@@ -7,7 +7,7 @@ import frc.robot.subsystems.Shooter;
 public class runShooter extends CommandBase{
     private final Shooter shooter;
     
-    public runShooter (Shooter subsystem) {
+    public runShooter(Shooter subsystem) {
         shooter = subsystem;
     }
     @Override
@@ -17,8 +17,8 @@ public class runShooter extends CommandBase{
 
     @Override
     public void execute() {
-        shooter.shooterLauncherLeaderMotor.set(RobotContainer.manipJoystick.getRawAxis(1));
-        shooter.shooterLauncherFollowerMotor.set(-RobotContainer.manipJoystick.getRawAxis(1));
+        shooter.shooterLauncherLeaderMotor.set((Math.floor(RobotContainer.manipJoystick.getRawAxis(1) * 10)) / 10);
+        shooter.shooterLauncherFollowerMotor.set((Math.floor(-RobotContainer.manipJoystick.getRawAxis(1) * 10)) / 10);
     }
 
     // Called once the command ends or is interrupted.

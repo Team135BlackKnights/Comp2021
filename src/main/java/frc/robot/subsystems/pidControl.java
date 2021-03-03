@@ -1,7 +1,9 @@
 package frc.robot.subsystems;
 
 public class pidControl {
-  public double proportionalOutput, integralOutput, integralTop, integralBottom, desired, error, kP, kI;
+  public double proportionalOutput, lastoutput,
+  integralOutput, integralTop, integralBottom,
+  desired, error, kP, kI;
 
   public void caculateOutputs() {
     integralTop = desired * 1.34;
@@ -14,7 +16,7 @@ public class pidControl {
     integralOutput = error * kI;
   }
 
-  public double Output() {
+  public double pidReturn() {
     if (proportionalOutput > integralBottom && proportionalOutput < integralTop) {
       return proportionalOutput + integralOutput;
     } else {

@@ -10,11 +10,12 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommands.*;
 import frc.robot.commands.DriveCommands.angleDrive;
 import frc.robot.commands.DriveCommands.encoderDrive;
-import frc.robot.commands.DriveCommands.motorSpecificControl;
 import frc.robot.commands.IntakeCommands.fireSolenoid;
+import frc.robot.commands.ShooterCommands.runShooter;
 import frc.robot.commands.autonomous.barrelRacing;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
 public class RobotContainer implements RobotMap {
 
@@ -54,10 +55,11 @@ public class RobotContainer implements RobotMap {
       manipButton9 = new JoystickButton(manipJoystick, KOI.BASE_MIDDLE_LEFT_BUTTON),
       manipButton10 = new JoystickButton(manipJoystick, KOI.BASE_MIDDLE_RIGHT_BUTTON),
       manipButton11 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_LEFT_BUTTON),
-      manipButton12 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON);
+      manipButton12 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON); //declair all the joystick items that might be used
 
   public static Intake intake = new Intake();
-  public static Drive drive = new Drive();
+  public static Shooter shooter = new Shooter();
+  public static Drive drive = new Drive(); //create new drive and itake
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -65,7 +67,8 @@ public class RobotContainer implements RobotMap {
   public RobotContainer() {
 
     // Configure the button bindings
-    drive.setDefaultCommand(new mecanumDrive(drive));
+    shooter.setDefaultCommand(new runShooter(shooter));
+    drive.setDefaultCommand(new mecanumDrive(drive)); //set the default command
     
     configureButtonBindings();
   }
@@ -76,7 +79,7 @@ public class RobotContainer implements RobotMap {
     manipButton4.whenPressed(new fireSolenoid(intake));
     rightButton5.whenPressed(new encoderDrive(drive, 0, 60));
     leftButton4.whenPressed(new barrelRacing(drive));
-    manipButton3.whenPressed(new resetEncoders(drive));
+    manipButton3.whenPressed(new resetEncoders(drive)); //setup what to do on each button
 
   }
 

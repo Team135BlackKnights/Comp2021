@@ -74,12 +74,12 @@ public class mecanumDrive extends CommandBase {
     zControl.caculateOutputs();
     rControl.caculateOutputs();
 
-    if (Math.abs(xControl.Output()) < 0.2) { // drive.mecanumDrive(xControl.desired, zControl.desired, rControl.desired);
-      drive.mecanumDrive(0, zControl.Output() * 2, rControl.Output() * 2);
-    } else if (Math.abs(zControl.Output()) < 0.2) {
-      drive.mecanumDrive(xControl.Output() * 2, 0, rControl.Output() * 2);
+    if (Math.abs(xControl.pidReturn()) < 0.2) { // drive.mecanumDrive(xControl.desired, zControl.desired, rControl.desired);
+      drive.mecanumDrive(0, zControl.pidReturn() * 2, rControl.pidReturn() * 2);
+    } else if (Math.abs(zControl.pidReturn()) < 0.2) {
+      drive.mecanumDrive(xControl.pidReturn() * 2, 0, rControl.pidReturn() * 2);
     } else {
-      drive.mecanumDrive(xControl.Output() * 2, zControl.Output() * 2, rControl.Output() * 2);
+      drive.mecanumDrive(xControl.pidReturn() * 2, zControl.pidReturn() * 2, rControl.pidReturn() * 2);
     }
 
     SmartDashboard.putNumber("front right encoder", drive.frontRightMotor.getSelectedSensorPosition());
@@ -90,8 +90,8 @@ public class mecanumDrive extends CommandBase {
 
     SmartDashboard.putNumber("Volocity: RPM", RPM); // get rounded RPM
 
-    SmartDashboard.putNumber("Xout", xControl.Output());
-    SmartDashboard.putNumber("Zout", zControl.Output());
+    SmartDashboard.putNumber("Xout", xControl.pidReturn());
+    SmartDashboard.putNumber("Zout", zControl.pidReturn());
 
     SmartDashboard.putNumber("frontleftmotor native units",
         Math.ceil(drive.frontLeftMotor.getSelectedSensorVelocity()));
