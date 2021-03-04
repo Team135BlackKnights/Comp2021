@@ -40,27 +40,31 @@ public class mecanumDrive extends CommandBase {
   @Override
   public void execute() {
 
+    // adds the native volocity of all motor before dividing be the RPM equation times 4
     final double RPM = (drive.frontLeftMotor.getSelectedSensorVelocity()
         + drive.frontRightMotor.getSelectedSensorVelocity() + drive.backLeftMotor.getSelectedSensorVelocity()
-        + drive.backRightMotor.getSelectedSensorVelocity()) / 88000; // adds the native volocity of all motor before
-                                                                     // dividing be the RPM equation times 4
+        + drive.backRightMotor.getSelectedSensorVelocity()) / 88000;
 
+    // get joystick postion
     xControl.desired = -checkDeadband(RobotContainer.leftJoystick, RobotMap.HORIZONTAL_AXIS, .2);
-    zControl.desired = checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2); // get joystick postion
+    zControl.desired = checkDeadband(RobotContainer.leftJoystick, RobotMap.VERTICAL_AXIS, .2); 
     rControl.desired = -checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2);
 
+    // setting sliders to use as speed mod
     leftSlider = RobotContainer.leftJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
-    rightSlider = RobotContainer.rightJoystick.getRawAxis(RobotMap.SLIDER_AXIS); // setting sliders to use as speed mod
+    rightSlider = RobotContainer.rightJoystick.getRawAxis(RobotMap.SLIDER_AXIS); 
 
+    // sliders to limit speed
     leftSlider = (leftSlider + 1) / 2;
-    rightSlider = (rightSlider + 1) / 2; // sliders to limit speed
+    rightSlider = (rightSlider + 1) / 2; 
 
+    // limit speed with sliders
     xControl.desired *= -leftSlider;
-    zControl.desired *= -leftSlider; // limit speed with sliders
+    zControl.desired *= -leftSlider; 
     rControl.desired *= -rightSlider;
 
-    if (checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2) != 0) { // fix turning interfearing
-                                                                                          // with drive
+    // fix turning interfearing with drive
+    if (checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2) != 0) { 
       rControl.error = (rControl.desired) - RPM;
       zControl.error = 0;
       xControl.error = 0;
@@ -88,7 +92,7 @@ public class mecanumDrive extends CommandBase {
 
     SmartDashboard.putNumber("YAW:", Drive.navx.getYaw());
 
-    SmartDashboard.putNumber("Volocity: RPM", RPM); // get rounded RPM
+    SmartDashboard.putNumber("Volocity: RPM", RPM); 
 
     SmartDashboard.putNumber("Xout", xControl.pidReturn());
     SmartDashboard.putNumber("Zout", zControl.pidReturn());
@@ -99,14 +103,13 @@ public class mecanumDrive extends CommandBase {
         Math.ceil(drive.frontRightMotor.getSelectedSensorVelocity()));
     SmartDashboard.putNumber("backrightmotor native units",
         Math.ceil(drive.backRightMotor.getSelectedSensorVelocity()));
-    SmartDashboard.putNumber("backleftmotor native units", Math.ceil(drive.backLeftMotor.getSelectedSensorVelocity())); // debug output for motor speeds
+        // debug output for motor speeds
+    SmartDashboard.putNumber("backleftmotor native units", Math.ceil(drive.backLeftMotor.getSelectedSensorVelocity())); 
   }
 
+  // if the joystick is less than the deadband return 0 else reutn joystick
   public double checkDeadband(Joystick _joystick, int axis, double deadband) {
-    return (Math.abs(_joystick.getRawAxis(axis)) < deadband ? 0.0 : _joystick.getRawAxis(axis));// if the joystick is
-                                                                                                // less than the
-                                                                                                // deadband return 0
-                                                                                                // else reutn joystick
+    return (Math.abs(_joystick.getRawAxis(axis)) < deadband ? 0.0 : _joystick.getRawAxis(axis));
   }
 
   // Called once the command ends or is interrupted.
