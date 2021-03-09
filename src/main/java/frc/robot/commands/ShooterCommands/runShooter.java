@@ -1,5 +1,6 @@
 package frc.robot.commands.ShooterCommands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
@@ -9,6 +10,7 @@ public class runShooter extends CommandBase{
     
     public runShooter(Shooter subsystem) {
         shooter = subsystem;
+        addRequirements(shooter);
     }
     @Override
     public void initialize() {
@@ -17,8 +19,11 @@ public class runShooter extends CommandBase{
 
     @Override
     public void execute() {
-        shooter.shooterLauncherLeaderMotor.set((Math.floor(RobotContainer.manipJoystick.getRawAxis(1) * 10)) / 10);
-        shooter.shooterLauncherFollowerMotor.set((Math.floor(-RobotContainer.manipJoystick.getRawAxis(1) * 10)) / 10);
+        shooter.shooterLauncherLeaderMotor.set(checkDeadband(RobotContainer.manipJoystick, 1, .15));
+    }
+
+    public double checkDeadband(Joystick _joystick, int axis, double deadband) {
+        return (Math.abs(_joystick.getRawAxis(axis)) < deadband ? 0.0 : _joystick.getRawAxis(axis));
     }
 
     // Called once the command ends or is interrupted.

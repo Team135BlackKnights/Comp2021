@@ -31,6 +31,11 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     voltageComp(backLeftMotor);
     voltageComp(backRightMotor);
 
+    frontLeftMotor.setSafetyEnabled(false);
+    frontRightMotor.setSafetyEnabled(false);
+    backLeftMotor.setSafetyEnabled(false);
+    backRightMotor.setSafetyEnabled(false);//disable child safety
+
     frontLeftMotorCG = new SpeedControllerGroup(frontLeftMotor);
     frontRightMotorCG = new SpeedControllerGroup(frontRightMotor);
     backLeftMotorCG = new SpeedControllerGroup(backLeftMotor);

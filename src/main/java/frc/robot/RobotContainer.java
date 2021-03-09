@@ -58,7 +58,7 @@ public class RobotContainer implements RobotMap {
       manipButton12 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON); //declair all the joystick items that might be used
 
   public static Intake intake = new Intake();
-  public static Shooter shooter = new Shooter();
+  //public static Shooter shooter = new Shooter();
   public static Drive drive = new Drive(); //create new drive and itake
 
   /**
@@ -67,7 +67,7 @@ public class RobotContainer implements RobotMap {
   public RobotContainer() {
 
     // Configure the button bindings
-    shooter.setDefaultCommand(new runShooter(shooter));
+    //shooter.setDefaultCommand(new runShooter(shooter));
     drive.setDefaultCommand(new mecanumDrive(drive)); //set the default command
     
     configureButtonBindings();
@@ -77,7 +77,8 @@ public class RobotContainer implements RobotMap {
 
     rightButton3.whenPressed(new angleDrive(drive, 180));
     manipButton4.whenPressed(new fireSolenoid(intake));
-    rightButton5.whenPressed(new encoderDrive(drive, 0, 60));
+    rightButton5.whenPressed(new encoderDrive(drive, 0, 35));
+    rightButton6.whenPressed(new encoderDrive(drive, -55, 40));
     leftButton4.whenPressed(new barrelRacing(drive));
     manipButton3.whenPressed(new resetEncoders(drive)); //setup what to do on each button
 

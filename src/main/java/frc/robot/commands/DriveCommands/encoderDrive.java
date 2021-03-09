@@ -25,23 +25,24 @@ public class encoderDrive extends CommandBase {
         isFinished = false;
         timer.reset();
         zControl.lastoutput = 0;
+        xControl.lastoutput = 0;
         timer.start(); //cleaning from prevous runs
 
         SmartDashboard.putBoolean("encoder drive", true); //note to smartdash that drive is running
 
         //reset encoder values and find distance to target position
         drive.resetEncoders();
-        while (drive.getSideDistance() != 0) {} //wait for the encoders to be reset
+        while (drive.getSideDistance() != 0 || drive.getFrontDistance() != 0)  {} //wait for the encoders to be reset
 
         xControl.error = xControl.desired - drive.getFrontDistance();
         zControl.error = zControl.desired - drive.getSideDistance(); //caculate error
 
         SmartDashboard.putNumber("Z desired", zControl.desired);
 
-        xControl.kP = .02;
+        xControl.kP = .01;
         xControl.kI = 0; //ki is 0 untill a proper I loop can be setup!!
 
-        zControl.kP = .01;
+        zControl.kP = .002;
         zControl.kI = .0; //ki is 0 untill a proper I loop can be setup!!
     }
 
@@ -54,6 +55,9 @@ public class encoderDrive extends CommandBase {
         xControl.error = xControl.desired - drive.getFrontDistance();
         zControl.error = zControl.desired - drive.getSideDistance();
         // get distance to disired pos
+        SmartDashboard.putNumber("left side encoders", drive.getSideDistance());
+        SmartDashboard.putNumber("front encoders", drive.getFrontDistance());
+
         SmartDashboard.putNumber("Current Distance", drive.getSideDistance());
         SmartDashboard.putNumber("front left encoder", drive.frontLeftMotor.getSelectedSensorPosition());
         SmartDashboard.putNumber("Z Error", zControl.error);
@@ -64,14 +68,29 @@ public class encoderDrive extends CommandBase {
 
         if (zControl.pidReturn() < .07 && zControl.pidReturn() > 0) {
             zControl.proportionalOutput = .07;
+            SmartDashboard.putBoolean("Z Min Power Override", true);
         } else if (zControl.pidReturn() > -.07 && zControl.pidReturn() < 0) {
             zControl.proportionalOutput = -.07;
+            SmartDashboard.putBoolean("Z Min Power Override", true);
         } else {
             zControl.proportionalOutput = zControl.pidReturn();
+            SmartDashboard.putBoolean("Z Min Power Override", false);
         } // setup minimum power so if there is power but is under the wire's threshold
           // still give min output
+        if (xControl.pidReturn() < .07 && xControl.pidReturn() > 0) {
+            xControl.proportionalOutput = .07;
+            SmartDashboard.putBoolean("X Min Power Override", true);
+        } else if (xControl.pidReturn() > -.07 && xControl.pidReturn() < 0) {
+            xControl.proportionalOutput = -.07;
+            SmartDashboard.putBoolean("X Min Power Override", true);
+        } else {
+            xControl.proportionalOutput = xControl.pidReturn();
+            SmartDashboard.putBoolean("X Min Power Override", false);
+        }
 
         zControl.proportionalOutput = limit(zControl.proportionalOutput, .4, -.4); // limit the output to a max of (40)% speed
+
+        xControl.proportionalOutput = limit(xControl.proportionalOutput, .4, -.4); // limit the output to a max of (40)% speed
 
         if ((zControl.proportionalOutput - zControl.lastoutput) / timer.get() > .5) {
             zControl.proportionalOutput = zControl.lastoutput + (.5 * timer.get()); // add rampup for pos
@@ -79,8 +98,22 @@ public class encoderDrive extends CommandBase {
             zControl.proportionalOutput = zControl.lastoutput - (.5 * timer.get());// add rampup for neg
         }
 
-        drive.mecanumDrive(0, zControl.proportionalOutput, 0); //output to drive
+        if ((xControl.proportionalOutput - xControl.lastoutput) / timer.get() > .6) {
+            xControl.proportionalOutput = xControl.lastoutput + (.5 * timer.get()); // add rampup for pos
+        } else if ((xControl.proportionalOutput - xControl.lastoutput) / timer.get() < -.5) {
+            xControl.proportionalOutput = xControl.lastoutput - (.5 * timer.get());// add rampup for neg
+        }
 
+        if (xControl.desired != 0 && zControl.desired != 0){
+            drive.mecanumDrive(xControl.proportionalOutput, zControl.proportionalOutput, 0); //output to drive
+        } else if (xControl.desired != 0)
+        {        
+            drive.mecanumDrive(xControl.proportionalOutput, 0, 0); //output to drive
+        } else {
+            drive.mecanumDrive(0, zControl.proportionalOutput, 0); //output to drive
+        }
+
+        xControl.lastoutput = xControl.proportionalOutput; //update xControl.lastoutput
         zControl.lastoutput = zControl.proportionalOutput; //update zControl.lastoutput
         timer.reset();
 
@@ -114,6 +147,7 @@ public class encoderDrive extends CommandBase {
     public void end(boolean interrupted) {
         drive.mecanumDrive(0, 0, 0);
         zControl.lastoutput = 0;
+        xControl.lastoutput = 0;
         timer.stop();
         isFinished = false;
     }

@@ -4,6 +4,7 @@ import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.pidControl;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -26,14 +27,14 @@ public class mecanumDrive extends CommandBase {
   @Override
   public void initialize() {
 
-    xControl.kP = .2;
-    xControl.kI = .01;
+    xControl.kP = .1;
+    xControl.kI = 0;
 
     zControl.kP = .2;
-    zControl.kI = .01;
+    zControl.kI = 0;
 
     rControl.kP = .2;
-    rControl.kI = .01;
+    rControl.kI = 0;
 
   }
 
@@ -64,6 +65,7 @@ public class mecanumDrive extends CommandBase {
     rControl.desired *= -rightSlider;
 
     // fix turning interfearing with drive
+    
     if (checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2) != 0) { 
       rControl.error = (rControl.desired) - RPM;
       zControl.error = 0;
@@ -73,22 +75,22 @@ public class mecanumDrive extends CommandBase {
       zControl.error = (zControl.desired) - RPM;
       rControl.error = 0;
     }
+  
+
+
+    //rControl.error = (rControl.desired) - RPM;
+    //xControl.error = (xControl.desired) - RPM;
+    //zControl.error = (zControl.desired) - RPM;
 
     xControl.caculateOutputs();
     zControl.caculateOutputs();
     rControl.caculateOutputs();
 
-    if (Math.abs(xControl.pidReturn()) < 0.2) { // drive.mecanumDrive(xControl.desired, zControl.desired, rControl.desired);
-      drive.mecanumDrive(0, zControl.pidReturn() * 2, rControl.pidReturn() * 2);
-    } else if (Math.abs(zControl.pidReturn()) < 0.2) {
-      drive.mecanumDrive(xControl.pidReturn() * 2, 0, rControl.pidReturn() * 2);
-    } else {
-      drive.mecanumDrive(xControl.pidReturn() * 2, zControl.pidReturn() * 2, rControl.pidReturn() * 2);
-    }
+    
+    drive.mecanumDrive(xControl.pidReturn() * 2, zControl.pidReturn() * 2, rControl.pidReturn() * 2);
 
     SmartDashboard.putNumber("front right encoder", drive.frontRightMotor.getSelectedSensorPosition());
     SmartDashboard.putNumber("back Left encoder", drive.backLeftMotor.getSelectedSensorPosition());
-    SmartDashboard.putNumber("left side encoders", drive.getSideDistance());
 
     SmartDashboard.putNumber("YAW:", Drive.navx.getYaw());
 
