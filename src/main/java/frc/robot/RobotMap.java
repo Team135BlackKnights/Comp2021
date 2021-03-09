@@ -23,7 +23,7 @@ public interface RobotMap {
     }
 
     public interface INTAKE {
-        final int ROLLER_SPARK = 15;
+        final int ROLLER_SPARK = 7;
 
     }
 
