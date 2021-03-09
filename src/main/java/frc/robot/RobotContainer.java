@@ -11,6 +11,7 @@ import frc.robot.commands.DriveCommands.*;
 import frc.robot.commands.DriveCommands.angleDrive;
 import frc.robot.commands.DriveCommands.encoderDrive;
 import frc.robot.commands.IntakeCommands.fireSolenoid;
+import frc.robot.commands.IntakeCommands.runRoller;
 import frc.robot.commands.ShooterCommands.runShooter;
 import frc.robot.commands.autonomous.barrelRacing;
 import frc.robot.subsystems.Drive;
@@ -69,6 +70,7 @@ public class RobotContainer implements RobotMap {
     // Configure the button bindings
     //shooter.setDefaultCommand(new runShooter(shooter));
     drive.setDefaultCommand(new mecanumDrive(drive)); //set the default command
+    intake.setDefaultCommand(new runRoller(intake, 1000));
     
     configureButtonBindings();
   }

@@ -28,7 +28,7 @@ public interface RobotMap {
     }
 
     public interface STORAGE {
-        final int CONVEYOR_SPARK = 14, ROLLER_SPARK = 15, INTAKE_TRIP_SWITCH = 0;
+        final int CONVEYOR_SPARK = 14, ROLLER_SPARK = 7, INTAKE_TRIP_SWITCH = 0;
     }
 
     public interface SHOOTER {

@@ -13,6 +13,7 @@ public class runRoller extends CommandBase {
     public runRoller (Intake subsystem, double _desiredRPM) {
         intake = subsystem;
         desiredRPM = _desiredRPM;
+        addRequirements(intake);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class runRoller extends CommandBase {
 
         //set output bassed off proportional
         double input = proportionalOutput;
-        intake.rollerMotor.set(input);
+        intake.rollerMotor.set(.5);
     }
 
     @Override
