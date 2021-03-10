@@ -52,8 +52,8 @@ public class mecanumDrive extends CommandBase {
     rControl.desired = -checkDeadband(RobotContainer.rightJoystick, RobotMap.ROTATIONAL_AXIS, .2);
 
     // setting sliders to use as speed mod
-    leftSlider = RobotContainer.leftJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
-    rightSlider = RobotContainer.rightJoystick.getRawAxis(RobotMap.SLIDER_AXIS); 
+    leftSlider = -RobotContainer.leftJoystick.getRawAxis(RobotMap.SLIDER_AXIS);
+    rightSlider = -RobotContainer.rightJoystick.getRawAxis(RobotMap.SLIDER_AXIS); 
 
     // sliders to limit speed
     leftSlider = (leftSlider + 1) / 2;

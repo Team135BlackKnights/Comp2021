@@ -34,7 +34,7 @@ public class runRoller extends CommandBase {
 
         //set output bassed off proportional
         double input = proportionalOutput;
-        intake.rollerMotor.set(.5);
+        intake.rollerMotor.set(-input);
     }
 
     @Override
