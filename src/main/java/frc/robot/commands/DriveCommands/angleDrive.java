@@ -24,7 +24,6 @@ public class angleDrive extends CommandBase {
         drive.resetEncoders();
         isFinished = false;
         // get the distance to the desired pos
-
     }
 
     @Override
@@ -43,9 +42,7 @@ public class angleDrive extends CommandBase {
         SmartDashboard.putNumber("current Error", angleError);
 
         // When over 90 degrees off of the desired make the power full
-        proportionalOutput = (angleError / 90) * kP;
-        
-        
+        proportionalOutput = (angleError / 90) * kP;    
 
         // make maxe speed 40% power
         proportionalOutput = limit(proportionalOutput, .40, -.40);

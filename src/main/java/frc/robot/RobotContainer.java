@@ -7,17 +7,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.DriveCommands.*;
 import frc.robot.commands.DriveCommands.angleDrive;
 import frc.robot.commands.DriveCommands.encoderDrive;
+import frc.robot.commands.DriveCommands.mecanumDrive;
+import frc.robot.commands.DriveCommands.resetEncoders;
 import frc.robot.commands.IntakeCommands.fireSolenoid;
 import frc.robot.commands.IntakeCommands.runRoller;
-import frc.robot.commands.ShooterCommands.runShooter;
-import frc.robot.commands.autonomous.GalcacticSearch.*;
 import frc.robot.commands.autonomous.barrelRacing;
-import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.*;
 
 public class RobotContainer implements RobotMap {
 
@@ -59,7 +56,7 @@ public class RobotContainer implements RobotMap {
       manipButton11 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_LEFT_BUTTON),
       manipButton12 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON); //declair all the joystick items that might be used
 
-  //public static Intake intake = new Intake();
+    public static Intake intake = new Intake();
   //public static Shooter shooter = new Shooter();
   public static Drive drive = new Drive(); //create new drive and itake
 
@@ -71,26 +68,21 @@ public class RobotContainer implements RobotMap {
     // Configure the button bindings
     //shooter.setDefaultCommand(new runShooter(shooter));
     drive.setDefaultCommand(new mecanumDrive(drive)); //set the default command
-    //intake.setDefaultCommand(new runRoller(intake, 10));
     
     configureButtonBindings();
   }
 
-  private void configureButtonBindings() {
+  private void configureButtonBindings() { //setup what to do on each button
+
+    manipTrigger.whenPressed(new runRoller(intake, 10));
+    manipButton3.whenPressed(new resetEncoders(drive)); 
+    manipButton4.whenPressed(new fireSolenoid(intake));
 
     rightButton3.whenPressed(new angleDrive(drive, 180));
-    //manipButton4.whenPressed(new fireSolenoid(intake));
     rightButton5.whenPressed(new encoderDrive(drive, 90, 0));
     rightButton6.whenPressed(new encoderDrive(drive, -55, 40));
-    leftButton4.whenPressed(new barrelRacing(drive));
-    manipButton3.whenPressed(new resetEncoders(drive)); //setup what to do on each button
-    if (true) {
-      manipButton5.whenPressed(new GalacticSearchBlueA(drive));
-    }
-    else {
-      manipButton5.whenPressed(new GalacticSearchRedA(drive));
-    }
 
+    leftButton4.whenPressed(new barrelRacing(drive));
   }
 
   /**
@@ -99,7 +91,6 @@ public class RobotContainer implements RobotMap {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return null;
   }
 }
