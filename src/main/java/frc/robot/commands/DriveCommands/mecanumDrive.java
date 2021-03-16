@@ -18,8 +18,6 @@ public class mecanumDrive extends CommandBase {
 
   public mecanumDrive(Drive subsystem) {
     drive = subsystem;
-
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
