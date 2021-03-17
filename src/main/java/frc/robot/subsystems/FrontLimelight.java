@@ -11,7 +11,8 @@ public class FrontLimelight extends SubsystemBase {
     private static FrontLimelight instance;
 
     NetworkTableInstance networkTableInstance = NetworkTableInstance.getDefault();
-	NetworkTable TurretLimelightTable = networkTableInstance.getTable("limelight-turret");
+    NetworkTable TurretLimelightTable = networkTableInstance.getTable("limelight-turret");
+    
 	NetworkTableEntry 
     validTargetEntry = TurretLimelightTable.getEntry("tv"),
     ledModeEntry = TurretLimelightTable.getEntry("ledMode"),
