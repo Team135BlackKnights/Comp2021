@@ -11,9 +11,8 @@ import frc.robot.commands.DriveCommands.angleDrive;
 import frc.robot.commands.DriveCommands.encoderDrive;
 import frc.robot.commands.DriveCommands.mecanumDrive;
 import frc.robot.commands.DriveCommands.resetEncoders;
-import frc.robot.commands.IntakeCommands.fireSolenoid;
-import frc.robot.commands.IntakeCommands.runRoller;
 import frc.robot.commands.autonomous.barrelRacing;
+import frc.robot.commands.autonomous.bounce;
 import frc.robot.subsystems.*;
 
 public class RobotContainer implements RobotMap {
@@ -59,7 +58,6 @@ public class RobotContainer implements RobotMap {
   //public static Intake intake = new Intake();
   //public static Shooter shooter = new Shooter();
   public static Drive drive = new Drive(); //create new drive and itake
-  public static LIDAR lidar = new LIDAR(); 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -67,7 +65,7 @@ public class RobotContainer implements RobotMap {
 
     // Configure the button bindings
     //shooter.setDefaultCommand(new runShooter(shooter));
-    drive.setDefaultCommand(new mecanumDrive(drive, lidar)); //set the default command
+    drive.setDefaultCommand(new mecanumDrive(drive)); //set the default command
     //intake.setDefaultCommand(new runRoller(intake, 10));
     
     configureButtonBindings();
@@ -83,7 +81,9 @@ public class RobotContainer implements RobotMap {
     rightButton5.whenPressed(new encoderDrive(drive, 90, 0));
     rightButton6.whenPressed(new encoderDrive(drive, -55, 40));
 
-    leftButton4.whenPressed(new barrelRacing(drive));
+    if (FrontLimelight.isTargetVisable) {leftButton4.whenPressed(new barrelRacing(drive));}
+    else{leftButton4.whenPressed(new bounce(drive));}
+
   }
 
   /**

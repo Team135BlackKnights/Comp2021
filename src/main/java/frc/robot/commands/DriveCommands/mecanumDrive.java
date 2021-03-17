@@ -3,7 +3,6 @@ package frc.robot.commands.DriveCommands;
 import frc.robot.RobotContainer;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.LIDAR;
 import frc.robot.subsystems.pidControl;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -14,13 +13,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class mecanumDrive extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Drive drive;
-  private final LIDAR lidar;
   private double leftSlider, rightSlider;
   public pidControl xControl = new pidControl(), zControl = new pidControl(), rControl = new pidControl();
 
-  public mecanumDrive(Drive subsystem, LIDAR sensorsystem) {
+  public mecanumDrive(Drive subsystem) {
     drive = subsystem;
-    lidar = sensorsystem;
     addRequirements(subsystem);
   }
 
@@ -100,7 +97,6 @@ public class mecanumDrive extends CommandBase {
     SmartDashboard.putNumber("backrightmotor native units",
         Math.ceil(drive.backRightMotor.getSelectedSensorVelocity()));
         // debug output for motor speeds
-    SmartDashboard.putNumber("LIDAR:", lidar.getDistance());    
     SmartDashboard.putNumber("backleftmotor native units", Math.ceil(drive.backLeftMotor.getSelectedSensorVelocity())); 
   }
 
