@@ -26,8 +26,9 @@ public class Turret {
 
     public Turret() {
 
-        initLimelight(1,1);
-    }
+        limelightPipelineEntry.setNumber(1);
+        ledModeEntry.setNumber(1);   
+     }
 
 
     public double[] getLimelightData() {
@@ -39,11 +40,5 @@ public class Turret {
     
         return limelightData;
     }
-    
-    public void initLimelight(int ledMode, int pipeline) {
-        limelightPipelineEntry.setNumber(pipeline);
-        ledModeEntry.setNumber(ledMode);
-    }
-    
     
 }

@@ -56,10 +56,10 @@ public class RobotContainer implements RobotMap {
       manipButton11 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_LEFT_BUTTON),
       manipButton12 = new JoystickButton(manipJoystick, KOI.BASE_BOTTOM_RIGHT_BUTTON); //declair all the joystick items that might be used
 
-    public static Intake intake = new Intake();
+  //public static Intake intake = new Intake();
   //public static Shooter shooter = new Shooter();
   public static Drive drive = new Drive(); //create new drive and itake
-
+  public static LIDAR lidar = new LIDAR(); 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -67,16 +67,17 @@ public class RobotContainer implements RobotMap {
 
     // Configure the button bindings
     //shooter.setDefaultCommand(new runShooter(shooter));
-    drive.setDefaultCommand(new mecanumDrive(drive)); //set the default command
+    drive.setDefaultCommand(new mecanumDrive(drive, lidar)); //set the default command
+    //intake.setDefaultCommand(new runRoller(intake, 10));
     
     configureButtonBindings();
   }
 
   private void configureButtonBindings() { //setup what to do on each button
 
-    manipTrigger.whenPressed(new runRoller(intake, 10));
+   // manipTrigger.whenPressed(new runRoller(intake, 10));
     manipButton3.whenPressed(new resetEncoders(drive)); 
-    manipButton4.whenPressed(new fireSolenoid(intake));
+   // manipButton4.whenPressed(new fireSolenoid(intake));
 
     rightButton3.whenPressed(new angleDrive(drive, 180));
     rightButton5.whenPressed(new encoderDrive(drive, 90, 0));

@@ -11,7 +11,7 @@ public class slalam extends SequentialCommandGroup{
         super(
             sequence(
             new resetEncoders(drive),
-            new encoderDrive(drive, 0, 30),
+            new encoderDrive(drive, 0, 37),
             new angleDrive(drive, -90), //at e3
             new encoderDrive(drive, 0, 60),
             new angleDrive(drive, 0), //at 
