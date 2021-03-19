@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -11,8 +7,8 @@ import frc.robot.commands.DriveCommands.angleDrive;
 import frc.robot.commands.DriveCommands.encoderDrive;
 import frc.robot.commands.DriveCommands.mecanumDrive;
 import frc.robot.commands.DriveCommands.resetEncoders;
-import frc.robot.commands.autonomous.barrelRacing;
-import frc.robot.commands.autonomous.bounce;
+import frc.robot.commands.autonomous.GalcacticSearch.GalacticSearchBlueA;
+import frc.robot.commands.autonomous.GalcacticSearch.GalacticSearchBlueB;
 import frc.robot.subsystems.*;
 
 public class RobotContainer implements RobotMap {
@@ -75,14 +71,12 @@ public class RobotContainer implements RobotMap {
 
    // manipTrigger.whenPressed(new runRoller(intake, 10));
     manipButton3.whenPressed(new resetEncoders(drive)); 
-   // manipButton4.whenPressed(new fireSolenoid(intake));
-
     rightButton3.whenPressed(new angleDrive(drive, 180));
     rightButton5.whenPressed(new encoderDrive(drive, 90, 0));
     rightButton6.whenPressed(new encoderDrive(drive, -55, 40));
 
-    if (FrontLimelight.isTargetVisable) {leftButton4.whenPressed(new barrelRacing(drive));}
-    else{leftButton4.whenPressed(new bounce(drive));}
+    if (FrontLimelight.isTargetVisable) {leftButton4.whenPressed(new GalacticSearchBlueA(drive));}
+    else{leftButton4.whenPressed(new GalacticSearchBlueB(drive));} //check to see if there is a ball, if there is one run A else run B
 
   }
 

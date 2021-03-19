@@ -23,10 +23,7 @@ public class Shooter extends SubsystemBase implements RobotMap.SHOOTER {
        shooterLauncherFollowerMotor = new WPI_TalonFX(SHOOTER_LAUNCHER_FOLLOWER);
        shooterLauncherFollowerMotor.follow(shooterLauncherLeaderMotor);
        shooterLauncherFollowerMotor.setInverted(true);
-       voltageComp(shooterLauncherFollowerMotor);
-
-       
-       
+       voltageComp(shooterLauncherFollowerMotor); 
     }
     public void voltageComp(TalonFX talon) {
         talon.enableVoltageCompensation(true);
