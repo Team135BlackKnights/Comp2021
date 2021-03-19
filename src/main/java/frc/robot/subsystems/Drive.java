@@ -66,11 +66,13 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
   }
 
   public double getSideDistance() {
-    return (((frontLeftMotor.getSelectedSensorPosition() / 788) + (backLeftMotor.getSelectedSensorPosition() / 788)) / 2); // avrage side pos
+    return (((frontLeftMotor.getSelectedSensorPosition() / 788) + 
+     (backLeftMotor.getSelectedSensorPosition() / 788)) / 2); // avrage side pos
   }
 
   public double getFrontDistance() {
-    return (((frontLeftMotor.getSelectedSensorPosition() / 788) + (frontRightMotor.getSelectedSensorPosition() / 788)) / 2); // avrage front side pos
+    return (((frontLeftMotor.getSelectedSensorPosition() / 788) +
+     (frontRightMotor.getSelectedSensorPosition() / 788)) / 2); // avrage front side pos
   }
 
   public void resetEncoders() {
@@ -78,15 +80,5 @@ public class Drive extends SubsystemBase implements frc.robot.RobotMap {
     frontRightMotor.setSelectedSensorPosition(0);
     backLeftMotor.setSelectedSensorPosition(0);
     backRightMotor.setSelectedSensorPosition(0);
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
   }
 }
