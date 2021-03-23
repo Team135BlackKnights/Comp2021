@@ -12,23 +12,28 @@ public class FrontLimelight extends SubsystemBase {
 
     NetworkTableInstance networkTableInstance = NetworkTableInstance.getDefault();
     NetworkTable TurretLimelightTable = networkTableInstance.getTable("limelight-turret");
-    
-	NetworkTableEntry 
-    validTargetEntry = TurretLimelightTable.getEntry("tv"),
-    ledModeEntry = TurretLimelightTable.getEntry("ledMode"),
-	cameraModeEntry = TurretLimelightTable.getEntry("camMode"),
-    limelightPipelineEntry = TurretLimelightTable.getEntry("pipeline");
+
+    NetworkTableEntry validTargetEntry = TurretLimelightTable.getEntry("tv"),
+            ledModeEntry = TurretLimelightTable.getEntry("ledMode"),
+            cameraModeEntry = TurretLimelightTable.getEntry("camMode"),
+            limelightPipelineEntry = TurretLimelightTable.getEntry("pipeline");
 
     public static boolean isTargetVisable = false;
 
     @Override
-    public void periodic() 	
-	{
-        if (validTargetEntry.getDouble(0.0) >=1){isTargetVisable = true;}
-        else {isTargetVisable = false;}
-        SmartDashboard.putBoolean("Target Exist", isTargetVisable); //retuns if the limelight sees a target
-	}
+    public void periodic() {
+        if (validTargetEntry.getDouble(0.0) >= 1) {
+            isTargetVisable = true;
+        } else {
+            isTargetVisable = false;
+        }
+        SmartDashboard.putBoolean("Target Exist", isTargetVisable); // retuns if the limelight sees a target
+    }
 
-	public static FrontLimelight getInstance() {if (instance == null) {instance = new FrontLimelight();}return instance;}
-    
+    public static FrontLimelight getInstance() {
+        if (instance == null) {
+            instance = new FrontLimelight();
+        }
+        return instance;
+    }
 }

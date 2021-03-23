@@ -5,13 +5,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 
-public class runShooter extends CommandBase{
+public class runShooter extends CommandBase {
     private final Shooter shooter;
-    
+
     public runShooter(Shooter subsystem) {
         shooter = subsystem;
         addRequirements(shooter);
     }
+
     @Override
     public void initialize() {
 
@@ -28,7 +29,8 @@ public class runShooter extends CommandBase{
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+    }
 
     // Returns true when the command should end.
     @Override
