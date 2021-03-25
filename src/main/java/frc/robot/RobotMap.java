@@ -23,12 +23,11 @@ public interface RobotMap {
     }
 
     public interface INTAKE {
-        final int ROLLER_SPARK = 7;
-
+        final int ROLLER_SPARK = 10;
     }
 
     public interface STORAGE {
-        final int CONVEYOR_SPARK = 14, ROLLER_SPARK = 7, INTAKE_TRIP_SWITCH = 0;
+        final int CONVEYOR_SPARK = 14, INTAKE_TRIP_SWITCH = 0;
     }
 
     public interface SHOOTER {
